@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incredible India - Complete Interactive Experience</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        :root {
+            --primary-blue: #3b82f6;
+            --primary-orange: #f97316;
+            --dark-bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            background-attachment: fixed;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(15, 23, 42, 0.98);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-orange);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: var(--primary-orange);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(249, 115, 22, 0.1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.03"/><circle cx="75" cy="75" r="1" fill="%23ffffff" opacity="0.03"/><circle cx="25" cy="75" r="1" fill="%23ffffff" opacity="0.03"/><circle cx="75" cy="25" r="1" fill="%23ffffff" opacity="0.03"/></pattern></defs><rect width="1000" height="1000" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #3b82f6, #f97316, #ef4444);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-orange));
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Map Container */
+        .map-section {
+            min-height: 100vh;
+            padding: 80px 20px 60px;
+            position: relative;
+        }
+
+        .map-container {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Perfect Indian Map Styles */
+        .india-map {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+        }
+
+        .state-path {
+            fill: #475569;
+            stroke: #64748b;
+            stroke-width: 0.5;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            cursor: pointer;
+            filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
+        }
+
+        .state-path:hover {
+            stroke: #fbbf24;
+            stroke-width: 1.5;
+            filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.6));
+            transform: scale(1.02);
+            transform-origin: center;
+        }
+
+        /* Individual state hover colors */
+        .state-path[data-state="Andaman and Nicobar Islands"]:hover { fill: #06b6d4; }
+        .state-path[data-state="Andhra Pradesh"]:hover { fill: #ec4899; }
+        .state-path[data-state="Arunachal Pradesh"]:hover { fill: #22c55e; }
+        .state-path[data-state="Assam"]:hover { fill: #8b5cf6; }
+        .state-path[data-state="Bihar"]:hover { fill: #ef4444; }
+        .state-path[data-state="Chandigarh"]:hover { fill: #f59e0b; }
+        .state-path[data-state="Chhattisgarh"]:hover { fill: #10b981; }
+        .state-path[data-state="Dadra and Nagar Haveli and Daman and Diu"]:hover { fill: #f43f5e; }
+        .state-path[data-state="Delhi"]:hover { fill: #dc2626; }
+        .state-path[data-state="Goa"]:hover { fill: #06b6d4; }
+        .state-path[data-state="Gujarat"]:hover { fill: #f97316; }
+        .state-path[data-state="Haryana"]:hover { fill: #eab308; }
+        .state-path[data-state="Himachal Pradesh"]:hover { fill: #3b82f6; }
+        .state-path[data-state="Jammu and Kashmir"]:hover { fill: #8b5cf6; }
+        .state-path[data-state="Jharkhand"]:hover { fill: #10b981; }
+        .state-path[data-state="Karnataka"]:hover { fill: #22c55e; }
+        .state-path[data-state="Kerala"]:hover { fill: #8b5cf6; }
+        .state-path[data-state="Ladakh"]:hover { fill: #06b6d4; }
+        .state-path[data-state="Lakshadweep"]:hover { fill: #14b8a6; }
+        .state-path[data-state="Madhya Pradesh"]:hover { fill: #f97316; }
+        .state-path[data-state="Maharashtra"]:hover { fill: #eab308; }
+        .state-path[data-state="Manipur"]:hover { fill: #ec4899; }
+        .state-path[data-state="Meghalaya"]:hover { fill: #22c55e; }
+        .state-path[data-state="Mizoram"]:hover { fill: #f43f5e; }
+        .state-path[data-state="Nagaland"]:hover { fill: #8b5cf6; }
+        .state-path[data-state="Odisha"]:hover { fill: #06b6d4; }
+        .state-path[data-state="Puducherry"]:hover { fill: #f59e0b; }
+        .state-path[data-state="Punjab"]:hover { fill: #eab308; }
+        .state-path[data-state="Rajasthan"]:hover { fill: #ef4444; }
+        .state-path[data-state="Sikkim"]:hover { fill: #10b981; }
+        .state-path[data-state="Tamil Nadu"]:hover { fill: #06b6d4; }
+        .state-path[data-state="Telangana"]:hover { fill: #ec4899; }
+        .state-path[data-state="Tripura"]:hover { fill: #8b5cf6; }
+        .state-path[data-state="Uttar Pradesh"]:hover { fill: #3b82f6; }
+        .state-path[data-state="Uttarakhand"]:hover { fill: #10b981; }
+        .state-path[data-state="West Bengal"]:hover { fill: #f59e0b; }
+
+        /* Tooltip */
+        .tooltip {
+            position: absolute;
+            background: linear-gradient(135deg, #1e293b, #334155);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: 500;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(10px) scale(0.9);
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            backdrop-filter: blur(10px);
+            max-width: 250px;
+        }
+
+        .tooltip.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .tooltip::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #1e293b;
+        }
+
+        /* State Details Panel */
+        .state-details {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 25px;
+            padding: 40px;
+            margin-top: 40px;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: slideUp 0.6s ease-out forwards;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Statistics Section */
+        .stats-section {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 25px;
+            padding: 60px 40px;
+            margin: 60px auto;
+            max-width: 1200px;
+        }
+
+        .stat-card {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(59, 130, 246, 0.2);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #3b82f6, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-bg);
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 60px 20px 20px;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .map-container,
+            .stats-section,
+            .state-details {
+                margin: 20px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <span class="text-3xl">🇮🇳</span>
+                    <span class="text-xl font-bold">Incredible India</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#explore" class="nav-link">Explore</a>
+                    <a href="#states" class="nav-link">States</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+                <button class="md:hidden text-2xl">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="floating" style="animation-delay: -0.5s;">🕉️</div>
+            <h1 class="hero-title">Incredible India</h1>
+            <p class="hero-subtitle">Discover the Diversity of Our 28 States & 8 Union Territories</p>
+            <a href="#explore" class="cta-button">
+                <span>🗺️</span>
+                Explore Interactive Map
+            </a>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats-section">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold mb-4">India at a Glance</h2>
+            <p class="text-xl text-gray-300">Fascinating facts about our incredible nation</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="stat-card">
+                <div class="stat-number">28</div>
+                <div class="text-lg font-semibold">States</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">8</div>
+                <div class="text-lg font-semibold">Union Territories</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">1.4B+</div>
+                <div class="text-lg font-semibold">Population</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">22</div>
+                <div class="text-lg font-semibold">Official Languages</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Map Section -->
+    <section id="explore" class="map-section">
+        <div class="container mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-5xl font-bold mb-4">🗺️ Interactive India Map</h2>
+                <p class="text-xl text-gray-300 mb-8">Hover over any state to discover its beauty • Click to explore in detail</p>
+            </div>
+
+            <div class="map-container">
+                <svg class="india-map" viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Jammu and Kashmir -->
+                    <path class="state-path" data-state="Jammu and Kashmir" data-capital="Srinagar" 
+                  d="M200,50 L280,40 L340,60 L380,90 L390,120 L370,140 L340,135 L300,145 L260,140 L220,130 L190,100 L185,70 Z"/>
+                    
+                    <!-- Ladakh -->
+                    <path class="state-path" data-state="Ladakh" data-capital="Leh" 
+                          d="M380,50 L480,40 L520,60 L530,90 L510,120 L480,115 L450,125 L420,120 L390,100 Z"/>
+                    
+                    <!-- Himachal Pradesh -->
+                    <path class="state-path" data-state="Himachal Pradesh" data-capital="Shimla" 
+                          d="M300,145 L380,140 L420,160 L410,185 L380,190 L340,185 L310,175 Z"/>
+                    
+                    <!-- Punjab -->
+                    <path class="state-path" data-state="Punjab" data-capital="Chandigarh" 
+                          d="M310,175 L360,170 L375,195 L365,215 L340,220 L320,205 Z"/>
+                    
+                    <!-- Chandigarh -->
+                    <path class="state-path" data-state="Chandigarh" data-capital="Chandigarh" 
+                          d="M360,190 L375,185 L380,200 L370,205 Z"/>
+                    
+                    <!-- Haryana -->
+                    <path class="state-path" data-state="Haryana" data-capital="Chandigarh" 
+                          d="M340,220 L380,215 L400,240 L390,260 L360,265 L340,245 Z"/>
+                    
+                    <!-- Delhi -->
+                    <path class="state-path" data-state="Delhi" data-capital="New Delhi" 
+                          d="M390,240 L405,235 L410,250 L400,255 Z"/>
+                    
+                    <!-- Uttarakhand -->
+                    <path class="state-path" data-state="Uttarakhand" data-capital="Dehradun" 
+                          d="M410,185 L480,180 L510,200 L500,230 L470,235 L440,230 L420,210 Z"/>
+                    
+                    <!-- Uttar Pradesh -->
+                    <path class="state-path" data-state="Uttar Pradesh" data-capital="Lucknow" 
+                          d="M410,240 L500,235 L580,240 L600,270 L590,300 L560,315 L520,320 L480,315 L450,300 L420,280 Z"/>
+                    
+                    <!-- Rajasthan -->
+                    <path class="state-path" data-state="Rajasthan" data-capital="Jaipur" 
+                          d="M240,220 L340,215 L390,240 L420,280 L410,340 L380,380 L340,390 L300,385 L260,375 L220,360 L200,320 L210,280 L230,245 Z"/>
+                    
+                    <!-- Gujarat -->
+                    <path class="state-path" data-state="Gujarat" data-capital="Gandhinagar" 
+                          d="M180,360 L260,355 L300,385 L290,430 L270,470 L240,490 L200,485 L160,470 L140,440 L150,400 Z"/>
+                    
+                    <!-- Dadra and Nagar Haveli and Daman and Diu -->
+                    <path class="state-path" data-state="Dadra and Nagar Haveli and Daman and Diu" data-capital="Daman" 
+                          d="M240,450 L260,445 L265,465 L250,470 Z"/>
+                    
+                    <!-- Maharashtra -->
+                    <path class="state-path" data-state="Maharashtra" data-capital="Mumbai" 
+                          d="M290,430 L410,425 L460,440 L480,480 L470,520 L440,540 L400,545 L360,540 L320,525 L280,505 L260,470 Z"/>
+                    
+                    <!-- Goa -->
+                    <path class="state-path" data-state="Goa" data-capital="Panaji" 
+                          d="M320,525 L340,520 L345,540 L335,545 Z"/>
+                    
+                    <!-- Karnataka -->
+                    <path class="state-path" data-state="Karnataka" data-capital="Bangalore" 
+                          d="M360,540 L470,535 L500,555 L510,590 L490,620 L460,635 L420,640 L380,630 L350,615 L340,580 Z"/>
+                    
+                    <!-- Kerala -->
+                    <path class="state-path" data-state="Kerala" data-capital="Thiruvananthapuram" 
+                          d="M340,580 L380,575 L390,615 L385,650 L370,670 L350,665 L335,645 L330,610 Z"/>
+                    
+                    <!-- Tamil Nadu -->
+                    <path class="state-path" data-state="Tamil Nadu" data-capital="Chennai" 
+                          d="M460,635 L560,630 L590,650 L600,680 L580,700 L540,705 L500,700 L470,685 L450,655 Z"/>
+                    
+                    <!-- Puducherry -->
+                    <path class="state-path" data-state="Puducherry" data-capital="Puducherry" 
+                          d="M540,660 L550,655 L555,670 L545,675 Z"/>
+                    
+                    <!-- Andhra Pradesh -->
+                    <path class="state-path" data-state="Andhra Pradesh" data-capital="Amaravati" 
+                          d="M510,555 L580,550 L600,580 L590,620 L560,635 L520,640 L500,605 Z"/>
+                    
+                    <!-- Telangana -->
+                    <path class="state-path" data-state="Telangana" data-capital="Hyderabad" 
+                          d="M480,480 L540,475 L560,510 L540,540 L510,545 L480,530 Z"/>
+                    
+                    <!-- Chhattisgarh -->
+                    <path class="state-path" data-state="Chhattisgarh" data-capital="Raipur" 
+                          d="M520,380 L580,375 L600,410 L585,450 L560,465 L530,460 L510,430 Z"/>
+                    
+                    <!-- Madhya Pradesh -->
+                    <path class="state-path" data-state="Madhya Pradesh" data-capital="Bhopal" 
+                          d="M420,340 L520,335 L580,340 L600,370 L580,410 L540,425 L500,420 L460,405 L430,385 Z"/>
+                    
+                    <!-- Odisha -->
+                    <path class="state-path" data-state="Odisha" data-capital="Bhubaneswar" 
+                          d="M600,410 L650,405 L670,440 L665,480 L640,510 L610,515 L590,485 Z"/>
+                    
+                    <!-- Jharkhand -->
+                    <path class="state-path" data-state="Jharkhand" data-capital="Ranchi" 
+                          d="M560,320 L620,315 L650,340 L640,375 L610,390 L580,385 Z"/>
+                    
+                    <!-- West Bengal -->
+                    <path class="state-path" data-state="West Bengal" data-capital="Kolkata" 
+                          d="M650,340 L720,335 L750,365 L745,410 L720,450 L690,465 L660,460 L640,430 Z"/>
+                    
+                    <!-- Bihar -->
+                    <path class="state-path" data-state="Bihar" data-capital="Patna" 
+                          d="M560,270 L640,265 L670,295 L650,325 L620,330 L590,315 Z"/>
+                    
+                    <!-- Sikkim -->
+                    <path class="state-path" data-state="Sikkim" data-capital="Gangtok" 
+                          d="M670,260 L690,255 L695,275 L685,280 Z"/>
+                    
+                    <!-- Assam -->
+                    <path class="state-path" data-state="Assam" data-capital="Dispur" 
+                          d="M720,280 L820,275 L850,305 L840,335 L810,350 L780,345 L750,335 Z"/>
+                    
+                    <!-- Arunachal Pradesh -->
+                    <path class="state-path" data-state="Arunachal Pradesh" data-capital="Itanagar" 
+                          d="M780,200 L880,195 L920,225 L910,265 L880,280 L850,275 L820,260 Z"/>
+                    
+                    <!-- Nagaland -->
+                    <path class="state-path" data-state="Nagaland" data-capital="Kohima" 
+                          d="M840,335 L870,330 L875,355 L860,360 Z"/>
+                    
+                    <!-- Manipur -->
+                    <path class="state-path" data-state="Manipur" data-capital="Imphal" 
+                          d="M810,350 L840,345 L845,370 L830,375 Z"/>
+                    
+                    <!-- Mizoram -->
+                    <path class="state-path" data-state="Mizoram" data-capital="Aizawl" 
+                          d="M810,380 L835,375 L840,400 L820,405 Z"/>
+                    
+                    <!-- Tripura -->
+                    <path class="state-path" data-state="Tripura" data-capital="Agartala" 
+                          d="M750,365 L780,360 L785,385 L765,390 Z"/>
+                    
+                    <!-- Meghalaya -->
+                    <path class="state-path" data-state="Meghalaya" data-capital="Shillong" 
+                          d="M750,335 L790,330 L800,355 L780,360 Z"/>
+                    
+                    <!-- Lakshadweep -->
+                    <path class="state-path" data-state="Lakshadweep" data-capital="Kavaratti" 
+                          d="M250,580 L265,575 L270,590 L255,595 Z"/>
+                    
+                    <!-- Andaman and Nicobar Islands -->
+                    <path class="state-path" data-state="Andaman and Nicobar Islands" data-capital="Port Blair" 
+                          d="M880,500 L900,495 L920,520 L915,550 L895,570 L875,565 L870,535 Z"/>
+                </svg>
+
+                <!-- Enhanced Tooltip -->
+                <div id="tooltip" class="tooltip">
+                    <div class="text-center">
+                        <div id="tooltip-title" class="font-bold text-lg mb-1"></div>
+                        <div id="tooltip-capital" class="text-sm opacity-90 mb-2"></div>
+                        <div id="tooltip-hint" class="text-xs opacity-75">Click to explore more →</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- State Details Panel -->
+            <div id="state-details" class="state

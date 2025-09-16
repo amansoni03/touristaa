@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking - Incredible India</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            background-attachment: fixed;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Navigation - Same as main site */
+        .navbar {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+        
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #f97316;
+        }
+
+        /* Main Container */
+        .main-container {
+            margin-top: 100px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .page-header h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #3b82f6, #f97316, #ef4444);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Search Form */
+        .search-section {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            background: rgba(59, 130, 246, 0.1);
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #f97316;
+            background: rgba(59, 130, 246, 0.2);
+        }
+
+        .search-button {
+            background: linear-gradient(135deg, #3b82f6, #f97316);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .search-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Loading Spinner */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(59, 130, 246, 0.3);
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Results Section */
+        .results-section {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            display: none;
+        }
+
+        .results-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .results-header h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #fbbf24;
+        }
+
+        .hotels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .hotel-card {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .hotel-card:hover {
+            transform: translateY(-5px);
+            background: rgba(59, 130, 246, 0.2);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.2);
+        }
+
+        .hotel-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #475569, #64748b);
+            border-radius: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            overflow: hidden;
+        }
+
+        .hotel-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .hotel-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        .hotel-location {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 10px;
+        }
+
+        .hotel-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .stars {
+            color: #fbbf24;
+        }
+
+        .hotel-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #f97316;
+            margin-bottom: 15px;
+        }
+
+        .hotel-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .feature-tag {
+            background: rgba(249, 115, 22, 0.2);
+            color: #f97316;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .book-button {
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6, #f97316);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .book-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Error Message */
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #fca5a5;
+            text-align: center;
+            display: none;
+        }
+
+        /* Animations */
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .hotels-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-container {
+                padding: 0 15px;
+            }
+        }
+
+        /* Back to Home Button */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: linear-gradient(135deg, #3b82f6, #f97316);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- Back to Home Button -->
+    <a href="index.html" class="back-button">
+        <span>🏠</span>
+        Back to Home
+    </a>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <span style="font-size: 30px;">🇮🇳</span>
+                <span>Incredible India</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#search">Search Hotels</a>
+                <a href="#booking">Book Now</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>🏨 Hotel Booking</h1>
+            <p>Find and book the perfect accommodation for your incredible India journey</p>
+        </div>
+
+        <!-- Search Form -->
+        <div class="search-section">
+            <form class="search-form" id="hotel-search-form">
+                <div class="form-group">
+                    <label for="destination">Destination</label>
+                    <input type="text" id="destination" name="destination" placeholder="Enter city (e.g., Mumbai, Delhi, Goa)" required>
+                </div>
+                <div class="form-group">
+                    <label for="checkin">Check-in Date</label>
+                    <input type="date" id="checkin" name="checkin" required>
+                </div>
+                <div class="form-group">
+                    <label for="checkout">Check-out Date</label>
+                    <input type="date" id="checkout" name="checkout" required>
+                </div>
+                <div class="form-group">
+                    <label for="guests">Guests</label>
+                    <select id="guests" name="guests">
+                        <option value="1">1 Guest</option>
+                        <option value="2" selected>2 Guests</option>
+                        <option value="3">3 Guests</option>
+                        <option value="4">4 Guests</option>
+                        <option value="5">5+ Guests</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="search-button">
+                        🔍 Search Hotels
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Searching for the best hotels...</p>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-message" id="error-message">
+            <p>Sorry, we couldn't find any hotels. Please try a different search.</p>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="results-section">
+            <div class="results-header">
+                <h2>Available Hotels</h2>
+                <p>Choose from our carefully selected accommodations</p>
+            </div>
+            <div class="hotels-grid" id="hotels-grid">
+                <!-- Hotels will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fixed API configuration
+        const API_KEY = '1ba40ef259msh14c2d3c440f745bp1d4c5cjsn2b02677fdcd4';
+        const API_HOST = 'hotels-com6.p.rapidapi.com';
+        
+        // Currency conversion rate (USD to INR)
+        const USD_TO_INR = 83; // Approximate rate
+
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('checkin').min = today;
+        document.getElementById('checkout').min = today;
+
+        // Update checkout date when checkin changes
+        document.getElementById('checkin').addEventListener('change', function() {
+            const checkinDate = new Date(this.value);
+            checkinDate.setDate(checkinDate.getDate() + 1);
+            document.getElementById('checkout').min = checkinDate.toISOString().split('T')[0];
+        });
+
+        // Fixed form submission handler with proper async handling
+        document.getElementById('hotel-search-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const destination = document.getElementById('destination').value.trim();
+            const checkin = document.getElementById('checkin').value;
+            const checkout = document.getElementById('checkout').value;
+            const guests = document.getElementById('guests').value;
+
+            // Validate inputs
+            if (!destination || !checkin || !checkout) {
+                showError('Please fill in all required fields.');
+                return;
+            }
+
+            // Validate dates
+            const checkinDate = new Date(checkin);
+            const checkoutDate = new Date(checkout);
+            if (checkoutDate <= checkinDate) {
+                showError('Check-out date must be after check-in date.');
+                return;
+            }
+
+            handleHotelSearch(destination, checkin, checkout, guests);
+        });
+
+        // Fixed async function for hotel search
+        async function handleHotelSearch(destination, checkin, checkout, guests) {
+            showLoading(true);
+            hideError();
+            hideResults();
+
+            try {
+                console.log('Starting hotel search for:', destination);
+                
+                // Try API call with timeout
+                const hotels = await Promise.race([
+                    searchHotelsAPI(destination, checkin, checkout, guests),
+                    new Promise((_, reject) => 
+                        setTimeout(() => reject(new Error('API timeout')), 10000)
+                    )
+                ]);
+
+                if (hotels && hotels.length > 0) {
+                    displayHotels(hotels, destination);
+                } else {
+                    throw new Error('No hotels found from API');
+                }
+            } catch (error) {
+                console.error('API search failed:', error.message);
+                showError(`API temporarily unavailable. Showing sample hotels for ${destination}.`);
+                
+                // Show mock data as fallback
+                const mockHotels = getMockHotels(destination);
+                displayHotels(mockHotels, destination);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // Fixed API search function
+        async function searchHotelsAPI(destination, checkin, checkout, guests) {
+            const url = `https://hotels-com6.p.rapidapi.com/hotels/search?q=${encodeURIComponent(destination)}&checkin=${checkin}&checkout=${checkout}&adults=${guests}`;
+            
+            const options = {
+                method: 'GET',
+                headers: {
+                    'x-rapidapi-key': API_KEY,
+                    'x-rapidapi-host': API_HOST
+                }
+            };
+
+            try {
+                const response = await fetch(url, options);
+                
+                if (!response.ok) {
+                    throw new Error(`API error: ${response.status} ${response.statusText}`);
+                }
+
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    const textResponse = await response.text();
+                    console.log('Non-JSON response:', textResponse);
+                    throw new Error('Invalid API response format');
+                }
+
+                const result = await response.json();
+                console.log('API Response:', result);
+                
+                // Handle different possible response structures
+                if (result && result.data && Array.isArray(result.data)) {
+                    return result.data.slice(0, 12);
+                } else if (result && Array.isArray(result)) {
+                    return result.slice(0, 12);
+                } else if (result && result.hotels && Array.isArray(result.hotels)) {
+                    return result.hotels.slice(0, 12);
+                } else {
+                    throw new Error('Unexpected API response structure');
+                }
+            } catch (error) {
+                console.error('API call error:', error);
+                throw error;
+            }
+        }
+
+        // Fixed currency conversion function
+        function convertToINR(usdPrice) {
+            try {
+                const usd = parseFloat(usdPrice) || 0;
+                const inr = Math.round(usd * USD_TO_INR);
+                return `₹${inr.toLocaleString('en-IN')}`;
+            } catch (error) {
+                return '₹N/A';
+            }
+        }
+
+        // Display hotels function
+        function displayHotels(hotels, destination) {
+            const hotelsGrid = document.getElementById('hotels-grid');
+            hotelsGrid.innerHTML = '';
+
+            if (!hotels || hotels.length === 0) {
+                showError('No hotels found for your search criteria.');
+                return;
+            }
+
+            hotels.forEach(hotel => {
+                const hotelCard = createHotelCard(hotel);
+                hotelsGrid.appendChild(hotelCard);
+            });
+
+            showResults();
+        }
+
+        // Fixed hotel card creation with INR pricing
+        function createHotelCard(hotel) {
+            const card = document.createElement('div');
+            card.className = 'hotel-card';
+
+            // Safely extract hotel data with fallbacks
+            const name = hotel.name || hotel.hotel_name || hotel.title || 'Beautiful Hotel';
+            const address = hotel.address || hotel.location || hotel.neighborhood || hotel.area || 'Prime Location';
+            const rawPrice = hotel.price || hotel.rates?.lowest || hotel.rate || hotel.cost || (Math.floor(Math.random() * 200) + 100);
+            const rating = hotel.rating || hotel.guestReviews?.rating || hotel.starRating || ((Math.random() * 2 + 7).toFixed(1));
+            const stars = Math.max(1, Math.min(5, Math.floor(hotel.starRating || hotel.stars || hotel.class || (Math.random() * 3) + 3)));
+            const hotelId = hotel.id || hotel.propertyId || hotel.hotel_id || ('hotel_' + Math.random().toString(36).substr(2, 9));
+
+            // Convert price to INR
+            const priceINR = convertToINR(rawPrice);
+
+            card.innerHTML = `
+                <div class="hotel-image">
+                    🏨
+                </div>
+                <div class="hotel-name">${name}</div>
+                <div class="hotel-location">📍 ${address}</div>
+                <div class="hotel-rating">
+                    <span class="stars">${'⭐'.repeat(stars)}</span>
+                    <span>(${rating}/10)</span>
+                </div>
+                <div class="hotel-price">${priceINR}/night</div>
+                <div class="hotel-features">
+                    <span class="feature-tag">Free WiFi</span>
+                    <span class="feature-tag">Breakfast</span>
+                    <span class="feature-tag">AC</span>
+                    <span class="feature-tag">Room Service</span>
+                </div>
+                <button class="book-button" onclick="bookHotel('${hotelId}', '${name.replace(/'/g, "\\'")}')">
+                    Book Now
+                </button>
+            `;
+
+            return card;
+        }
+
+        // Enhanced mock data for different Indian cities with INR pricing
+        function getMockHotels(destination = '') {
+            const baseHotels = [
+                {
+                    name: "The Taj Mahal Palace",
+                    address: "Gateway of India, Mumbai",
+                    price: 450,
+                    rating: 9.2,
+                    starRating: 5,
+                    id: "taj_mumbai"
+                },
+                {
+                    name: "The Imperial",
+                    address: "Janpath, New Delhi", 
+                    price: 380,
+                    rating: 8.9,
+                    starRating: 5,
+                    id: "imperial_delhi"
+                },
+                {
+                    name: "ITC Grand Chola",
+                    address: "Mount Road, Chennai",
+                    price: 320,
+                    rating: 8.7,
+                    starRating: 5,
+                    id: "itc_chennai"
+                },
+                {
+                    name: "The Oberoi",
+                    address: "MG Road, Bangalore",
+                    price: 280,
+                    rating: 8.5,
+                    starRating: 5,
+                    id: "oberoi_bangalore"
+                },
+                {
+                    name: "Park Hyatt",
+                    address: "Banjara Hills, Hyderabad",
+                    price: 250,
+                    rating: 8.3,
+                    starRating: 4,
+                    id: "hyatt_hyderabad"
+                },
+                {
+                    name: "The Leela Palace",
+                    address: "City Palace Road, Jaipur",
+                    price: 220,
+                    rating: 8.1,
+                    starRating: 4,
+                    id: "leela_jaipur"
+                },
+                {
+                    name: "Taj Exotica Resort & Spa",
+                    address: "Benaulim Beach, Goa",
+                    price: 200,
+                    rating: 7.9,
+                    starRating: 4,
+                    id: "taj_goa"
+                },
+                {
+                    name: "JW Marriott",
+                    address: "Senapati Bapat Road, Pune",
+                    price: 180,
+                    rating: 7.7,
+                    starRating: 4,
+                    id: "marriott_pune"
+                },
+                {
+                    name: "The Grand Bhagwati",
+                    address: "SG Highway, Ahmedabad",
+                    price: 150,
+                    rating: 7.5,
+                    starRating: 4,
+                    id: "bhagwati_ahmedabad"
+                },
+                {
+                    name: "The Oberoi Grand",
+                    address: "Chowringhee, Kolkata",
+                    price: 200,
+                    rating: 8.0,
+                    starRating: 5,
+                    id: "oberoi_kolkata"
+                }
+            ];
+
+            // Customize hotel names based on destination
+            if (destination.toLowerCase().includes('mumbai') || destination.toLowerCase().includes('bombay')) {
+                baseHotels[0].name = "The Taj Mahal Palace Mumbai";
+                baseHotels[1].name = "Trident Bandra Kurla";
+                baseHotels[2].name = "The St. Regis Mumbai";
+            } else if (destination.toLowerCase().includes('delhi')) {
+                baseHotels[0].name = "The Imperial New Delhi";
+                baseHotels[1].name = "The Oberoi New Delhi";
+                baseHotels[2].name = "Taj Palace New Delhi";
+            } else if (destination.toLowerCase().includes('goa')) {
+                baseHotels[0].name = "Taj Exotica Resort & Spa Goa";
+                baseHotels[1].name = "The Leela Goa Beach Resort";
+                baseHotels[2].name = "Grand Hyatt Goa";
+            }
+
+            return baseHotels;
+        }
+
+        // Fixed book hotel function
+        function bookHotel(hotelId, hotelName) {
+            const checkin = document.getElementById('checkin').value;
+            const checkout = document.getElementById('checkout').value;
+            const guests = document.getElementById('guests').value;
+
+            alert(`🎉 Booking Details:\n\nHotel: ${hotelName}\nCheck-in: ${checkin}\nCheck-out: ${checkout}\nGuests: ${guests}\n\nThis would redirect to the booking confirmation page where you can complete your reservation.`);
+        }
+
+        // Utility functions
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+        }
+
+        function showResults() {
+            document.getElementById('results-section').style.display = 'block';
+            document.getElementById('results-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function hideResults() {
+            document.getElementById('results-section').style.display = 'none';
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.querySelector('p').textContent = message;
+            errorDiv.style.display = 'block';
+        }
+
+        function hideError() {
+            document.getElementById('error-message').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Culture & Heritage - Incredible India</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: 
+                radial-gradient(circle at top left, rgba(255, 153, 51, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at top right, rgba(19, 136, 8, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at bottom left, rgba(0, 70, 151, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at bottom right, rgba(255, 153, 51, 0.3) 0%, transparent 50%),
+                linear-gradient(135deg, #f8f4e6 0%, #fff8dc 25%, #f0f8e8 50%, #e6f3ff 75%, #fff8dc 100%);
+            background-attachment: fixed;
+            color: #2c3e50;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating Background Images */
+        .floating-images {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-img {
+            position: absolute;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(255, 153, 51, 0.2);
+            opacity: 0.15;
+            filter: blur(1px);
+            transition: all 0.3s ease;
+        }
+
+        .floating-img:hover {
+            opacity: 0.25;
+            filter: blur(0px);
+            transform: scale(1.05);
+        }
+
+        .floating-img-1 {
+            width: 300px;
+            height: 200px;
+            top: 10%;
+            left: 5%;
+            background: linear-gradient(rgba(255,153,51,0.1), rgba(255,153,51,0.1)), url('https://images.unsplash.com/photo-1564507592333-c60657eea523?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80') center/cover;
+            animation: float1 8s ease-in-out infinite;
+            border: 2px solid rgba(255, 153, 51, 0.2);
+        }
+
+        .floating-img-2 {
+            width: 250px;
+            height: 180px;
+            top: 20%;
+            right: 10%;
+            background: linear-gradient(rgba(19,136,8,0.1), rgba(19,136,8,0.1)), url('https://images.unsplash.com/photo-1587474260584-136574528ed5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80') center/cover;
+            animation: float2 10s ease-in-out infinite;
+            border: 2px solid rgba(19, 136, 8, 0.2);
+        }
+
+        .floating-img-3 {
+            width: 280px;
+            height: 190px;
+            top: 50%;
+            left: 8%;
+            background: linear-gradient(rgba(0,70,151,0.1), rgba(0,70,151,0.1)), url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80') center/cover;
+            animation: float3 12s ease-in-out infinite;
+            border: 2px solid rgba(0, 70, 151, 0.2);
+        }
+
+        /* Floating animations */
+        @keyframes float1 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(1deg); }
+            50% { transform: translateY(-30px) rotate(0deg); }
+            75% { transform: translateY(-15px) rotate(-1deg); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) translateX(10px) rotate(1deg); }
+            66% { transform: translateY(-10px) translateX(-5px) rotate(-1deg); }
+        }
+
+        @keyframes float3 {
+            0%, 100% { transform: translateY(0px) scale(1) rotate(0deg); }
+            50% { transform: translateY(-25px) scale(1.02) rotate(2deg); }
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 3px solid #ff9933;
+            box-shadow: 0 5px 20px rgba(255, 153, 51, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+        
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #138808;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #ff9933;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: 
+                radial-gradient(circle at center, rgba(255, 153, 51, 0.1) 0%, transparent 70%),
+                radial-gradient(circle at 80% 20%, rgba(19, 136, 8, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(0, 70, 151, 0.1) 0%, transparent 50%);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-content h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff9933, #138808, #004797);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+        
+        .hero-content p {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: rgba(44, 62, 80, 0.8);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Search Section */
+        .search-section {
+            max-width: 1200px;
+            margin: 80px auto 60px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .search-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 3px solid rgba(255, 153, 51, 0.4);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 25px 50px rgba(255, 153, 51, 0.2);
+            text-align: center;
+        }
+
+        .search-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ff9933, #138808);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .search-box {
+            position: relative;
+            max-width: 600px;
+            margin: 30px auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 20px 25px;
+            font-size: 18px;
+            border: 3px solid rgba(255, 153, 51, 0.3);
+            border-radius: 50px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #ff9933;
+            box-shadow: 0 0 20px rgba(255, 153, 51, 0.3);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, #ff9933, #138808);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: linear-gradient(135deg, #e68a00, #0f6b06);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        /* Quick Categories */
+        .quick-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .category-btn {
+            background: linear-gradient(135deg, rgba(255, 153, 51, 0.1), rgba(19, 136, 8, 0.1));
+            border: 2px solid rgba(255, 153, 51, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #2c3e50;
+        }
+
+        .category-btn:hover {
+            background: linear-gradient(135deg, #ff9933, #138808);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 153, 51, 0.3);
+        }
+
+        /* Results Section */
+        .results-section {
+            max-width: 1400px;
+            margin: 60px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+            display: none;
+        }
+
+        .results-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 3px solid rgba(255, 153, 51, 0.4);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 25px 50px rgba(255, 153, 51, 0.2);
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .result-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ff9933, #138808);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .result-location {
+            font-size: 1.2rem;
+            color: rgba(44, 62, 80, 0.7);
+            margin-bottom: 20px;
+        }
+
+        /* Photo Gallery */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .photo-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 280px;
+            box-shadow: 0 10px 25px rgba(255, 153, 51, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .photo-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 153, 51, 0.3);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            color: white;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: all 0.3s ease;
+        }
+
+        .photo-item:hover .photo-overlay {
+            transform: translateY(0);
+        }
+
+        /* Culture Details */
+        .culture-details {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .detail-section {
+            background: linear-gradient(135deg, rgba(255, 153, 51, 0.05), rgba(19, 136, 8, 0.05));
+            border: 2px solid rgba(255, 153, 51, 0.2);
+            border-radius: 25px;
+            padding: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .detail-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 153, 51, 0.2);
+            border-color: rgba(255, 153, 51, 0.4);
+        }
+
+        .detail-section h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #138808;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .detail-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .detail-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .detail-image {
+            border-radius: 15px;
+            overflow: hidden;
+            height: 180px;
+            box-shadow: 0 8px 20px rgba(255, 153, 51, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .detail-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 25px rgba(255, 153, 51, 0.25);
+        }
+
+        .detail-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 10px;
+            font-size: 0.9rem;
+            text-align: center;
+            transform: translateY(100%);
+            transition: all 0.3s ease;
+        }
+
+        .detail-image:hover .image-caption {
+            transform: translateY(0);
+        }
+
+        .detail-text {
+            line-height: 1.8;
+            color: rgba(44, 62, 80, 0.9);
+            font-size: 1.1rem;
+        }
+
+        .detail-text h4 {
+            color: #138808;
+            font-size: 1.3rem;
+            margin: 20px 0 10px 0;
+            font-weight: 600;
+        }
+
+        .detail-text ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        .detail-text li {
+            margin: 8px 0;
+            position: relative;
+        }
+
+        .detail-text li::marker {
+            color: #ff9933;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(255, 153, 51, 0.1), rgba(19, 136, 8, 0.1));
+            border-left: 4px solid #ff9933;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 153, 51, 0.3);
+            border-top: 5px solid #ff9933;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Error Message */
+        .error-message {
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.1), rgba(192, 57, 43, 0.1));
+            border: 2px solid rgba(231, 76, 60, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            color: #c0392b;
+            margin: 20px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .floating-images {
+                display: none;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .search-container,
+            .results-container {
+                margin: 20px;
+                padding: 20px;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .quick-categories {
+                grid-template-columns: 1fr;
+            }
+
+            .photo-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .detail-images {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Background Images -->
+    <div class="floating-images">
+        <div class="floating-img floating-img-1"></div>
+        <div class="floating-img floating-img-2"></div>
+        <div class="floating-img floating-img-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <span style="font-size: 30px;">🇮🇳</span>
+                <span>Culture & Heritage</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#search">Search</a>
+                <a href="#explore">Explore</a>
+                <a href="#about">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div style="font-size: 4rem; margin-bottom: 20px;">🏛️</div>
+            <h1>Discover India's Rich Heritage</h1>
+            <p>Discover the Rich Cultural Tapestry of Incredible India</p>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section id="search" class="search-section">
+        <div class="search-container">
+            <div class="search-title">
+                <h2>🔍 Explore Indian Culture & Heritage</h2>
+                <p>Search for any state, city, or region to discover its unique cultural heritage, traditions, and famous landmarks</p>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchInput" placeholder="Enter state, city, or region (e.g., Rajasthan, Gujarat, Kerala)">
+                <button class="search-btn" id="searchBtn">Search</button>
+            </div>
+
+            <div class="quick-categories">
+                <a href="#" class="category-btn" data-query="Rajasthan">
+                    🏰 Royal Rajasthan
+                </a>
+                <a href="#" class="category-btn" data-query="Kerala">
+                    🌴 God's Own Country
+                </a>
+                <a href="#" class="category-btn" data-query="Punjab">
+                    🎵 Land of Five Rivers
+                </a>
+                <a href="#" class="category-btn" data-query="Gujarat">
+                    💎 Vibrant Gujarat
+                </a>
+                <a href="#" class="category-btn" data-query="West Bengal">
+                    🎭 Cultural Bengal
+                </a>
+                <a href="#" class="category-btn" data-query="Tamil Nadu">
+                    🕉️ Tamil Heritage
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Animation -->
+    <div class="loading" id="loadingDiv">
+        <div class="spinner"></div>
+        <p>Discovering cultural treasures...</p>
+    </div>
+
+    <!-- Results Section -->
+    <section class="results-section" id="resultsSection">
+        <div class="results-container">
+            <div class="result-header">
+                <h2 id="resultTitle">Cultural Heritage</h2>
+                <div class="result-location" id="resultLocation">📍 Location</div>
+            </div>
+
+            <!-- Photo Gallery -->
+            <div class="photo-gallery" id="photoGallery">
+                <!-- Photos will be dynamically loaded here -->
+            </div>
+
+            <!-- Culture Details -->
+            <div class="culture-details" id="cultureDetails">
+                <!-- Culture information will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Enhanced Cultural data with ACCURATE location-specific information and images
+        const culturalData = {
+            'rajasthan': {
+                title: 'Royal Heritage of Rajasthan',
+                location: 'Rajasthan, India',
+                photos: [
+                    {
+                        url: 'https://images.unsplash.com/photo-1477587458883-47145ed94245?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                        caption: 'Hawa Mahal - Palace of Winds, Jaipur'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                        caption: 'Jaisalmer Fort - The Golden City'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                        caption: 'City Palace, Udaipur - Lake City Palace'
+                    }
+                ],
+                sections: [
+                    {
+                        icon: '🏰',
+                        title: 'Heritage Sites & Royal Architecture',
+                        images: [
+                            {
+                                url: 'https://images.unsplash.com/photo-1477587458883-47145ed94245?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Hawa Mahal, Jaipur'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'City Palace, Udaipur'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Jaisalmer Fort'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Mehrangarh Fort, Jodhpur'
+                            }
+                        ],
+                        content: `Rajasthan is the crown jewel of Indian royal architecture, home to magnificent palaces and forts that showcase the grandeur of Rajput kingdoms spanning over 1,000 years.
+                        
+                        <div class="highlight-box">
+                        <strong>🎯 Did You Know?</strong> Rajasthan has more forts and palaces than any other Indian state - over 100 major heritage sites!
+                        </div>
+                        
+                        <h4>🏛️ UNESCO World Heritage Sites:</h4>
+                        <ul>
+                            <li><strong>Hill Forts of Rajasthan</strong> - Six magnificent forts including Chittorgarh, Kumbhalgarh, and Ranthambore</li>
+                            <li><strong>Jantar Mantar, Jaipur</strong> - World's largest stone astronomical observatory built in 1734</li>
+                        </ul>
+                        
+                        <h4>👑 Royal Palaces & Forts:</h4>
+                        <ul>
+                            <li><strong>Hawa Mahal, Jaipur</strong> - The iconic "Palace of Winds" with 953 intricately carved windows, allowing royal ladies to observe street life while maintaining purdah</li>
+                            <li><strong>Jaisalmer Fort</strong> - A living fort where 4,000 people still reside, made of golden sandstone that glows like gold in sunlight</li>
+                            <li><strong>City Palace, Udaipur</strong> - Sprawling over 11 acres overlooking Lake Pichola, blending Rajasthani, Mughal, Medieval, and Chinese architectural styles</li>
+                            <li><strong>Mehrangarh Fort, Jodhpur</strong> - Rising 400 feet above the blue city, with walls so thick they've never been breached</li>
+                            <li><strong>Amber Fort, Jaipur</strong> - Famous for its Sheesh Mahal (Mirror Palace) where a single candle can illuminate the entire hall with thousands of reflections</li>
+                        </ul>
+                        
+                        <h4>🎨 Architectural Marvels:</h4>
+                        <ul>
+                            <li><strong>Sheesh Mahal</strong> - Mirror work halls that create stunning light displays</li>
+                            <li><strong>Jharokhas</strong> - Overhanging enclosed balconies with intricate stone carvings</li>
+                            <li><strong>Chhatris</strong> - Elevated dome-shaped pavilions used as memorials</li>
+                            <li><strong>Baolis</strong> - Step wells with intricate architectural designs for water conservation</li>
+                        </ul>`
+                    },
+                    {
+                        icon: '👗',
+                        title: 'Royal Attire & Traditional Fashion',
+                        images: [
+                            {
+                                url: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Rajasthani Ghagra Choli'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1594736797933-d0e3ba1d36c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Traditional Rajasthani Turban'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Bandhani Odhani'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1606031866364-2c2c2c1d3dd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Rajasthani Jewelry'
+                            }
+                        ],
+                        content: `Rajasthani traditional clothing is a vibrant reflection of royal heritage, desert climate adaptation, and centuries-old textile craftsmanship that tells stories of kingdoms and communities.
+                        
+                        <div class="highlight-box">
+                        <strong>✨ Fashion Fact:</strong> The vibrant colors in Rajasthani clothing were originally chosen to stand out against the desert landscape and reflect the scorching sun!
+                        </div>
+                        
+                        <h4>👨 Men's Royal Attire:</h4>
+                        <ul>
+                            <li><strong>Pagri (Turban)</strong> - Different styles indicate region, caste, and occasion:
+                                <ul>
+                                    <li>Jodhpuri Pagri - Angular with a tail</li>
+                                    <li>Jaipur Pagri - Round and compact</li>
+                                    <li>Bikaner Pagri - Fan-shaped pleats</li>
+                                    <li>Marwar Pagri - Large with flowing tail</li>
+                                </ul>
+                            </li>
+                            <li><strong>Kurta & Dhoti</strong> - Long traditional shirt with wrapped lower garment, often in white cotton for comfort in desert heat</li>
+                            <li><strong>Angarkha</strong> - Traditional upper garment that ties on the side, worn by royalty</li>
+                            <li><strong>Mojaris</strong> - Handcrafted leather shoes with pointed toes, decorated with golden threads and beadwork</li>
+                            <li><strong>Accessories</strong> - Kamarband (waist belt), Kirpan (sword), and traditional jewelry</li>
+                        </ul>
+                        
+                        <h4>👩 Women's Regal Fashion:</h4>
+                        <ul>
+                            <li><strong>Ghagra Choli</strong> - The quintessential Rajasthani outfit:
+                                <ul>
+                                    <li>Ghagra - Flared skirt with up to 12 meters of fabric</li>
+                                    <li>Choli - Fitted blouse with intricate mirror work</li>
+                                    <li>Odhani - Colorful veil worn gracefully over the head</li>
+                                </ul>
+                            </li>
+                            <li><strong>Traditional Jewelry</strong>:
+                                <ul>
+                                    <li>Nath - Large nose ring, symbol of married women</li>
+                                    <li>Borla - Maang tikka worn on the forehead</li>
+                                    <li>Choker & Haar - Multiple necklace layers</li>
+                                    <li>Bajuband - Decorative armlets</li>
+                                    <li>Payal - Anklets with small bells</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        
+                        <h4>🎨 Traditional Textile Arts:</h4>
+                        <ul>
+                            <li><strong>Bandhani</strong> - Tie-dye technique creating intricate dot patterns</li>
+                            <li><strong>Leheriya</strong> - Wave-like patterns symbolizing flowing water</li>
+                            <li><strong>Block Printing</strong> - Hand-carved wooden blocks for printing designs</li>
+                            <li><strong>Gota Patti</strong> - Gold and silver ribbon embroidery</li>
+                            <li><strong>Mirror Work</strong> - Tiny mirrors sewn into fabric for sparkle</li>
+                        </ul>
+                        
+                        <div class="highlight-box">
+                        <strong>💡 Cultural Significance:</strong> Each color has meaning - saffron for prosperity, red for purity, yellow for spring, and green for harvest!
+                        </div>`
+                    },
+                    {
+                        icon: '🎭',
+                        title: 'Vibrant Arts, Music & Festivals',
+                        images: [
+                            {
+                                url: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Ghoomar Dance Performance'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1594736797933-d0e3ba1d36c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Kathputli Puppet Show'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Rajasthani Folk Musicians'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Desert Festival Camel Parade'
+                            }
+                        ],
+                        content: `Rajasthan's cultural traditions are a mesmerizing blend of royal courtly arts and vibrant folk traditions that have been passed down through generations of artists and performers.
+                        
+                        <div class="highlight-box">
+                        <strong>🏆 UNESCO Recognition:</strong> Kalbeliya folk songs and dances of Rajasthan are inscribed on UNESCO's Representative List of Intangible Cultural Heritage!
+                        </div>
+                        
+                        <h4>💃 Classical & Folk Dance Forms:</h4>
+                        <ul>
+                            <li><strong>Ghoomar</strong> - The state dance performed by women in flowing ghagras, involving graceful pirouetting movements that represent the full circle of life</li>
+                            <li><strong>Kalbeliya</strong> - Performed by the snake-charmer community, featuring fluid, serpentine movements mimicking snake motions</li>
+                            <li><strong>Chari Dance</strong> - Spectacular dance performed with brass pots balanced on heads, often with fire for dramatic effect</li>
+                            <li><strong>Bhavai</strong> - Acrobatic dance where performers balance multiple earthen pots while dancing on glass pieces or sword blades</li>
+                            <li><strong>Kachhi Ghodi</strong> - Men performing mock horse rides depicting historical battles and heroic tales</li>
+                        </ul>
+                        
+                        <h4>🎵 Musical Heritage:</h4>
+                        <ul>
+                            <li><strong>Manganiyar Community</strong> - Hereditary musicians who preserve ancient ragas and compositions</li>
+                            <li><strong>Langa Community</strong> - Master musicians specializing in Sufi music and devotional songs</li>
+                            <li><strong>Traditional Instruments</strong>:
+                                <ul>
+                                    <li>Ravanhatha - Ancient string instrument</li>
+                                    <li>Kamaycha - Bowed string instrument</li>
+                                    <li>Dhol & Nagada - Traditional drums</li>
+                                    <li>Sarangi - Classical string instrument</li>
+                                    <li>Algoza - Twin flute</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        
+                        <h4>🎨 Traditional Arts & Crafts:</h4>
+                        <ul>
+                            <li><strong>Miniature Paintings</strong>:
+                                <ul>
+                                    <li>Mewar School - Religious themes and court life</li>
+                                    <li>Marwar School - Bold colors and heroic themes</li>
+                                    <li>Hadoti School - Natural landscapes and hunting scenes</li>
+                                </ul>
+                            </li>
+                            <li><strong>Kathputli</strong> - String puppet theater telling stories from epics and folklore</li>
+                            <li><strong>Phad Painting</strong> - Narrative scroll paintings depicting folk deities like Pabuji and Devnarayan</li>
+                            <li><strong>Blue Pottery</strong> - Glazed pottery from Jaipur using unique techniques</li>
+                        </ul>
+                        
+                        <h4>🎪 Grand Festivals & Celebrations:</h4>
+                        <ul>
+                            <li><strong>Pushkar Camel Fair</strong> - World's largest camel fair with 50,000 camels, cultural performances, and competitions</li>
+                            <li><strong>Desert Festival, Jaisalmer</strong> - Three-day celebration of desert culture with folk performances and camel races</li>
+                            <li><strong>Teej Festival</strong> - Monsoon festival celebrating marital bliss with elaborate processions</li>
+                            <li><strong>Gangaur</strong> - 18-day spring festival honoring Goddess Gauri with colorful processions</li>
+                            <li><strong>Karni Mata Fair</strong> - Unique festival at the famous Rat Temple in Bikaner</li>
+                        </ul>
+                        
+                        <div class="highlight-box">
+                        <strong>🌟 Fun Fact:</strong> Rajasthani puppets are made without joints - all movements come from the skill of the puppeteer using a single string!
+                        </div>`
+                    },
+                    {
+                        icon: '🍛',
+                        title: 'Royal Cuisine & Desert Delicacies',
+                        images: [
+                            {
+                                url: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Dal Bati Churma'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Laal Maas Curry'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Traditional Rajasthani Thali'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1596797038530-2c107229654b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Ghevar Sweet'
+                            }
+                        ],
+                        content: `Rajasthani cuisine is a testament to culinary ingenuity, born from the harsh desert climate where fresh vegetables were scarce, leading to the creation of preserved foods and rich, flavorful dishes that could last for days.
+                        
+                        <div class="highlight-box">
+                        <strong>🏜️ Desert Innovation:</strong> Rajasthani cooks developed techniques to preserve food for months without refrigeration, creating dishes that actually improve in taste over time!
+                        </div>
+                        
+                        <h4>🍽️ Royal Signature Dishes:</h4>
+                        <ul>
+                            <li><strong>Dal Bati Churma</strong> - The crown jewel of Rajasthani cuisine:
+                                <ul>
+                                    <li>Dal - Five lentil curry with ghee and spices</li>
+                                    <li>Bati - Baked wheat balls traditionally cooked in desert sand</li>
+                                    <li>Churma - Sweet crushed wheat with jaggery and ghee</li>
+                                </ul>
+                            </li>
+                            <li><strong>Laal Maas</strong> - Fiery red meat curry made with mathania chilies, originally hunted game cooked by Rajput warriors</li>
+                            <li><strong>Gatte ki Sabzi</strong> - Gram flour dumplings in spiced yogurt gravy, perfect for the vegetarian royal courts</li>
+                            <li><strong>Ker Sangri</strong> - Desert beans and berries dish, showcasing adaptation to arid conditions</li>
+                            <li><strong>Papad ki Sabzi</strong> - Innovative curry made from papads during times of scarcity</li>
+                        </ul>
+                        
+                        <h4>🥖 Bread & Grain Varieties:</h4>
+                        <ul>
+                            <li><strong>Bajre ki Roti</strong> - Millet flatbread perfect for desert nutrition</li>
+                            <li><strong>Makke ki Roti</strong> - Corn bread served with garlic chutney</li>
+                            <li><strong>Besan Roti</strong> - Gram flour bread rich in protein</li>
+                            <li><strong>Khoba Roti</strong> - Multi-grain bread with jowar, bajra, and wheat</li>
+                        </ul>
+                        
+                        <h4>🧁 Royal Sweets & Desserts:</h4>
+                        <ul>
+                            <li><strong>Ghevar</strong> - Disc-shaped sweet soaked in sugar syrup, specially made during Teej festival</li>
+                            <li><strong>Mohanthal</strong> - Rich gram flour fudge garnished with pistachios and almonds</li>
+                            <li><strong>Malpua</strong> - Sweet pancakes served during festivals and celebrations</li>
+                            <li><strong>Balushahi</strong> - Flaky pastry similar to glazed donuts</li>
+                            <li><strong>Lapsi</strong> - Broken wheat pudding cooked with ghee and jaggery</li>
+                        </ul>
+                        
+                        <h4>🥤 Traditional Beverages:</h4>
+                        <ul>
+                            <li><strong>Chaas</strong> - Spiced buttermilk with cumin and mint, perfect for desert heat</li>
+                            <li><strong>Thandai</strong> - Cooling milk-based drink with almonds, fennel, and rose petals</li>
+                            <li><strong>Sol Kadhi</strong> - Coconut milk drink with kokum for digestion</li>
+                            <li><strong>Jaljeera</strong> - Cumin-flavored drink for instant energy</li>
+                        </ul>
+                        
+                        <h4>🌶️ Unique Cooking Techniques:</h4>
+                        <ul>
+                            <li><strong>Dhungar Method</strong> - Smoking technique for flavoring curries</li>
+                            <li><strong>Sand Cooking</strong> - Traditional method of cooking bati in hot desert sand</li>
+                            <li><strong>Solar Cooking</strong> - Using desert sun to prepare certain dishes</li>
+                            <li><strong>Clay Pot Cooking</strong> - Enhancing flavors through earthen cookware</li>
+                        </ul>
+                        
+                        <div class="highlight-box">
+                        <strong>👑 Royal Tradition:</strong> Rajasthani thalis traditionally had 36 different items, representing the complete nutritional needs of desert dwellers!
+                        </div>`
+                    }
+                ]
+            },
+            'gujarat': {
+                title: 'Vibrant Gujarat - Land of Entrepreneurs',
+                location: 'Gujarat, India',
+                photos: [
+                    {
+                        url: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                        caption: 'Rann of Kutch - White Desert'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                        caption: 'Somnath Temple - Sacred Jyotirlinga'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1609137144813-7d9921338f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                        caption: 'Sabarmati Ashram, Ahmedabad'
+                    }
+                ],
+                sections: [
+                    {
+                        icon: '🏛️',
+                        title: 'Heritage Sites & Architecture',
+                        images: [
+                            {
+                                url: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Rann of Kutch'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Somnath Temple'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1609137144813-7d9921338f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Sabarmati Ashram'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1578474846511-04ba529f0b88?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Stepwell Architecture'
+                            }
+                        ],
+                        content: `Gujarat boasts an incredible array of heritage sites from ancient Indus Valley civilizations to Mahatma Gandhi's revolutionary movements, showcasing 5,000 years of continuous cultural evolution.
+                        
+                        <div class="highlight-box">
+                        <strong>🏺 Ancient Wonder:</strong> Gujarat houses Dholavira, one of the largest Harappan sites, proving this land has been a center of civilization for over 4,500 years!
+                        </div>
+                        
+                        <h4>🕉️ Sacred Temples & Spiritual Sites:</h4>
+                        <ul>
+                            <li><strong>Somnath Temple</strong> - First of the 12 Jyotirlingas, destroyed and rebuilt 17 times, symbol of resilience</li>
+                            <li><strong>Dwarkadheesh Temple</strong> - Krishna's legendary kingdom, one of the four sacred Dhams</li>
+                            <li><strong>Ambaji Temple</strong> - One of the 51 Shakti Peethas, major pilgrimage site</li>
+                            <li><strong>Sun Temple, Modhera</strong> - 1,000-year-old architectural marvel dedicated to Sun God</li>
+                            <li><strong>Palitana Temples</strong> - Sacred Jain pilgrimage with 900+ temples on Shatrunjaya hills</li>
+                        </ul>
+                        
+                        <h4>🏛️ Architectural Marvels:</h4>
+                        <ul>
+                            <li><strong>Rani ki Vav, Patan</strong> - UNESCO World Heritage stepwell, called "Queen of Stepwells"</li>
+                            <li><strong>Champaner-Pavagadh</strong> - UNESCO site with 8th-14th century monuments</li>
+                            <li><strong>Adalaj Stepwell</strong> - Five-story underground marvel with intricate carvings</li>
+                            <li><strong>Laxmi Vilas Palace, Vadodara</strong> - World's largest private residence, four times larger than Buckingham Palace</li>
+                        </ul>
+                        
+                        <h4>🗿 Historical & Freedom Movement Sites:</h4>
+                        <ul>
+                            <li><strong>Sabarmati Ashram</strong> - Gandhi's home for 16 years, birthplace of Satyagraha</li>
+                            <li><strong>Dandi</strong> - Historic salt march destination that sparked India's independence movement</li>
+                            <li><strong>Lothal</strong> - Ancient Harappan port city with world's earliest known dock</li>
+                            <li><strong>Uparkot Fort, Junagadh</strong> - 2,300-year-old fort with Buddhist caves</li>
+                        </ul>
+                        
+                        <h4>🌊 Natural Wonders:</h4>
+                        <ul>
+                            <li><strong>Rann of Kutch</strong> - World's largest salt desert, transforms into flowering grasslands during monsoon</li>
+                            <li><strong>Gir Forest</strong> - Last refuge of Asiatic lions, successful conservation story</li>
+                            <li><strong>Marine National Park</strong> - India's first marine sanctuary protecting coral reefs</li>
+                        </ul>`
+                    },
+                    {
+                        icon: '👘',
+                        title: 'Traditional Attire & Textiles',
+                        images: [
+                            {
+                                url: 'https://images.unsplash.com/photo-1590736969955-71cc94901144?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Gujarati Traditional Dress'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Bandhani Textiles'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1578474846511-04ba529f0b88?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Kutchi Embroidery'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Mirror Work Fashion'
+                            }
+                        ],
+                        content: `Gujarati traditional attire reflects the state's rich textile heritage, entrepreneurial spirit, and diverse communities, featuring some of India's most intricate handwork and vibrant designs.
+                        
+                        <div class="highlight-box">
+                        <strong>🧵 Textile Legacy:</strong> Gujarat produces 25% of India's textiles and is the birthplace of the world-famous Bandhani (tie-dye) technique that's over 5,000 years old!
+                        </div>
+                        
+                        <h4>👨 Men's Traditional Wear:</h4>
+                        <ul>
+                            <li><strong>Dhoti-Kurta</strong> - Classic combination worn during festivals and ceremonies</li>
+                            <li><strong>Kediyu</strong> - Traditional Gujarati shirt with intricate buttons and collar</li>
+                            <li><strong>Pagdi</strong> - Colorful turbans, different styles for different communities</li>
+                            <li><strong>Chorno</strong> - Traditional dhoti-style lower garment</li>
+                            <li><strong>Mojari</strong> - Leather shoes with pointed toes and mirror work</li>
+                        </ul>
+                        
+                        <h4>👩 Women's Elegant Fashion:</h4>
+                        <ul>
+                            <li><strong>Chaniya Choli</strong> - The iconic three-piece ensemble:
+                                <ul>
+                                    <li>Chaniya - Flared skirt with intricate embroidery</li>
+                                    <li>Choli - Fitted blouse with mirror work</li>
+                                    <li>Dupatta - Colorful veil with Bandhani patterns</li>
+                                </ul>
+                            </li>
+                            <li><strong>Panetar</strong> - Traditional white and red wedding saree</li>
+                            <li><strong>Gharchola</strong> - Red silk saree with golden checks for special occasions</li>
+                        </ul>
+                        
+                        <h4>🎨 World-Famous Textile Arts:</h4>
+                        <ul>
+                            <li><strong>Bandhani (Tie-Dye)</strong> - Ancient technique creating dot patterns:
+                                <ul>
+                                    <li>Ekdali - Single dot pattern</li>
+                                    <li>Trikunti - Three-dot triangle pattern</li>
+                                    <li>Satbandi - Seven-dot pattern</li>
+                                    <li>Dungar Shahi - Mountain-like patterns</li>
+                                </ul>
+                            </li>
+                            <li><strong>Kutchi Embroidery</strong> - Intricate mirror work and thread embroidery:
+                                <ul>
+                                    <li>Ahir - Floral patterns by Ahir community</li>
+                                    <li>Rabari - Geometric designs by Rabari shepherds</li>
+                                    <li>Mutwa - Spiritual motifs by Mutwa community</li>
+                                </ul>
+                            </li>
+                            <li><strong>Patola Silk</strong> - Double ikat weaving technique taking 6 months per saree</li>
+                            <li><strong>Ajrakh Printing</strong> - Ancient block printing using natural dyes</li>
+                        </ul>
+                        
+                        <h4>💎 Traditional Jewelry:</h4>
+                        <ul>
+                            <li><strong>Jodha</strong> - Heavy silver ornaments worn by rural women</li>
+                            <li><strong>Hansli</strong> - Circular neck ornament</li>
+                            <li><strong>Armlets & Anklets</strong> - Silver jewelry with traditional motifs</li>
+                            <li><strong>Nose Rings</strong> - Elaborate designs indicating marital status</li>
+                        </ul>
+                        
+                        <div class="highlight-box">
+                        <strong>💫 Global Influence:</strong> Gujarati textiles have influenced fashion worldwide - from Hermès using Gujarati techniques to Bollywood making Bandhani globally popular!
+                        </div>`
+                    },
+                    {
+                        icon: '🎭',
+                        title: 'Folk Arts, Dance & Celebrations',
+                        images: [
+                            {
+                                url: 'https://images.unsplash.com/photo-1590736969955-71cc94901144?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Garba Dance'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Dandiya Raas'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1578474846511-04ba529f0b88?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Folk Musicians'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                                caption: 'Rann Utsav Festival'
+                            }
+                        ],
+                        content: `Gujarat's cultural expressions are as diverse as its geography, from the energetic Garba dances to the spiritual Bhajans, creating a vibrant tapestry that celebrates life, spirituality, and community bonds.
+                        
+                        <div class="highlight-box">
+                        <strong>🌍 Global Phenomenon:</strong> Gujarati Garba and Dandiya have become worldwide celebrations, with events held in over 50 countries during Navratri!
+                        </div>
+                        
+                        <h4>💃 Traditional Dance Forms:</h4>
+                        <ul>
+                            <li><strong>Garba</strong> - Gujarat's soul dance performed in circles around Goddess:
+                                <ul>
+                                    <li>Originated as worship dance around earthen pots (garbo)</li>
+                                    <li>Represents the cyclical nature of life and time</li>
+                                    <li>Features graceful hand movements and rhythmic steps</li>
+                                    <li>Performed during 9-day Navratri festival</li>
+                                </ul>
+                            </li>
+                            <li><strong>Dandiya Raas</strong> - Energetic stick dance:
+                                <ul>
+                                    <li>Performed with colorfully decorated wooden sticks</li>
+                                    <li>Represents mock fight between Goddess Durga and Mahishasura</li>
+                                    <li>Involves intricate choreographed patterns</li>
+                                    <li>Creates rhythm through stick striking</li>
+                                </ul>
+                            </li>
+                            <li><strong>Tippani</strong> - Folk dance performed during construction work</li>
+                            <li><strong>Bhavai</strong> - Dramatic folk theater combining dance and acting</li>
+                            <li><strong>Hudo</strong> - Traditional dance of Bharwad community</li>
+                        </ul>
+                        
+                        <h4>🎵 Musical Traditions:</h4>
+                        <ul>
+                            <li><strong>Bhajans</strong> - Devotional songs for spiritual gatherings</li>
+                            <li><strong>Lok Geet</strong> - Folk songs about daily life and seasons</li>
+                            <li><strong>Sugam Sangeet</strong> - Light classical music tradition</li>
+                            <li><strong>Traditional Instruments</strong>:
+                                <ul>
+                                    <li>Dhol - Large drum for festivals</li>
+                                    <li>Manjira - Small cymbals</li>
+                                    <li>Tabla - Classical percussion</li>
+                                    <li>Harmonium - Keyboard instrument</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        
+                        <h4>🎨 Traditional Arts & Crafts:</h4>
+                        <ul>
+                            <li><strong>Wood Carving</strong> - Intricate designs for temples and houses</li>
+                            <li><strong>Metal Craft</strong> - Brass and silver work for religious items</li>
+                            <li><strong>Pottery</strong> - Traditional earthenware and decorative items</li>
+                            <li><strong>Kite Making</strong> - Artistic kites for Uttarayan festival</li>
+                            <li><strong>Beadwork</strong> - Colorful bead jewelry and decorations</li>
+                        </ul>
+                        
+                        <h4>🎪 Major Festivals & Celebrations:</h4>
+                        <ul>
+                            <li><strong>Navratri</strong> - Nine-day festival celebrating feminine divine power:
+                                <ul>
+                                    <li>Most important Gujarati festival</li>
+                                    <li>Features nightly Garba and Dandiya</li>
+                                    <li>Celebrated with great enthusiasm worldwide</li>
+                                    <li>Different themes each night</li>
+                                </ul>
+                            </li>
+                            <li><strong>Uttarayan (Kite Festival)</strong> - International kite festival in January:
+                                <ul>
+                                    <li>Millions of kites fill the sky</li>
+                                    <li>Rooftop parties and competitions</li>
+                                    <li>Traditional foods like undhiyu and jalebi</li>
+                                </ul>
+                            </li>
+                            <li><strong>Rann Utsav</strong> - Cultural festival in Kutch's white desert</li>
+                            <li><strong>Bhavnath Mahadev Fair</strong> - Ancient fair attracting sadhus and pilgrims</li>
+                            <li><strong>Janmashtami</strong> - Krishna's birthday with Dahi Handi celebrations</li>
+                        </ul>
+                        
+                        <div class="highlight-box">
+                        <strong>🏆 World Records:</strong> Gujarat holds multiple world records including largest Garba dance (50,000+ participants) and highest number of kites flown simultaneously!
+                        </div>`
+                    },
+                    {
+                        icon: '🍛',
+                        title: 'Gujarati Cuisine & Culinary Heritage',
+                        images: [
+                            {
+                                url: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Gujarati Thali'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Dhokla and Khandvi'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Undhiyu Traditional Dish'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1596797038530-2c107229654b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Gujarati Sweets'
+                            }
+                        ],
+                        content: `Gujarati cuisine is a celebration of vegetarianism that proves plant-based food can be incredibly diverse, flavorful, and satisfying. Known for its subtle balance of sweet, salty, and spicy flavors, it's one of India's most distinctive regional cuisines.
+                        
+                        <div class="highlight-box">
+                        <strong>🌱 Vegetarian Paradise:</strong> Gujarat is 80% vegetarian, making it India's most vegetarian state. Many cities have completely vegetarian zones!
+                        </div>
+                        
+                        <h4>🍽️ Signature Dishes:</h4>
+                        <ul>
+                            <li><strong>Dhokla</strong> - Steamed gram flour cake, Gujarat's most famous snack:
+                                <ul>
+                                    <li>Khaman - Soft, spongy variety</li>
+                                    <li>Rava Dhokla - Made with semolina</li>
+                                    <li>Sandwich Dhokla - Layered version with chutney</li>
+                                </ul>
+                            </li>
+                            <li><strong>Thepla</strong> - Spiced flatbread perfect for travel, made with fenugreek leaves</li>
+                            <li><strong>Undhiyu</strong> - Mixed vegetable curry traditionally cooked upside down in earthen pots</li>
+                            <li><strong>Khandvi</strong> - Delicate gram flour rolls, requiring expert technique</li>
+                            <li><strong>Handvo</strong> - Savory cake made from mixed lentils and rice</li>
+                        </ul>
+                        
+                        <h4>🥘 Traditional Gujarati Thali:</h4>
+                        <ul>
+                            <li><strong>Sweet Dishes</strong>:
+                                <ul>
+                                    <li>Shrikhand - Sweetened strained yogurt</li>
+                                    <li>Puran Poli - Sweet lentil-stuffed flatbread</li>
+                                    <li>Basundi - Reduced milk dessert</li>
+                                </ul>
+                            </li>
+                            <li><strong>Savory Items</strong>:
+                                <ul>
+                                    <li>Kadhi - Spiced buttermilk curry</li>
+                                    <li>Dal - Lentil preparations with jaggery</li>
+                                    <li>Shaak - Vegetable curries with unique spicing</li>
+                                </ul>
+                            </li>
+                            <li><strong>Accompaniments</strong>:
+                                <ul>
+                                    <li>Pickles and chutneys</li>
+                                    <li>Papad and farsan (savory snacks)</li>
+                                    <li>Buttermilk and lassi</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        
+                        <h4>🍪 Street Food & Snacks:</h4>
+                        <ul>
+                            <li><strong>Khakhra</strong> - Crispy flatbread available in dozens of flavors</li>
+                            <li><strong>Fafda-Jalebi</strong> - Perfect combination of salty and sweet for breakfast</li>
+                            <li><strong>Locho</strong> - Steamed gram flour dish from Surat</li>
+                            <li><strong>Dabeli</strong> - Spiced potato burger in pav bread</li>
+                            <li><strong>Ghughra</strong> - Sweet or savory stuffed pastries</li>
+                        </ul>
+                        
+                        <h4>🧁 Traditional Sweets:</h4>
+                        <ul>
+                            <li><strong>Mohanthal</strong> - Rich gram flour fudge with almonds</li>
+                            <li><strong>Ghari</strong> - Surat's famous sweet with mawa filling</li>
+                            <li><strong>Jalebi</strong> - Crispy spirals soaked in sugar syrup</li>
+                            <li><strong>Sutarfeni</strong> - Delicate sweet threads like cotton candy</li>
+                            <li><strong>Kopra Pak</strong> - Coconut-based sweet from Kutch</li>
+                        </ul>
+                        
+                        <h4>☕ Traditional Beverages:</h4>
+                        <ul>
+                            <li><strong>Chaas</strong> - Spiced buttermilk with curry leaves and ginger</li>
+                            <li><strong>Sugarcane Juice</strong> - Fresh juice with lemon and black salt</li>
+                            <li><strong>Masala Chai</strong> - Spiced tea with cardamom and ginger</li>
+                            <li><strong>Thandai</strong> - Cooling drink during festivals</li>
+                        </ul>
+                        
+                        <h4>🌿 Unique Cooking Techniques:</h4>
+                        <ul>
+                            <li><strong>Steaming</strong> - Dhokla, khandvi, and handvo preparation</li>
+                            <li><strong>Tempering (Tadka)</strong> - Crucial for flavor development</li>
+                            <li><strong>Fermentation</strong> - Natural fermentation for better taste and nutrition</li>
+                            <li><strong>Balance of Tastes</strong> - Sweet, salty, spicy, and tangy in harmony</li>
+                        </ul>
+                        
+                        <div class="highlight-box">
+                        <strong>💡 Health Secret:</strong> Gujarati cuisine emphasizes digestive spices like cumin, coriander, and asafoetida, making the food both delicious and healthy!
+                        </div>`
+                    }
+                ]
+            },
+            'kerala': {
+                title: 'God\'s Own Country - Kerala',
+                location: 'Kerala, India',
+                photos: [
+                    {
+                        url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                        caption: 'Kerala Backwaters - Alleppey'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                        caption: 'Traditional Kerala Temple'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                        caption: 'Munnar Tea Plantations'
+                    }
+                ],
+                sections: [
+                    {
+                        icon: '🏛️',
+                        title: 'Sacred Temples & Natural Heritage',
+                        images: [
+                            {
+                                url: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Kerala Temple Architecture'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Kerala Backwaters'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Hill Station Tea Gardens'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Coastal Beauty'
+                            }
+                        ],
+                        content: `Kerala's heritage is a unique blend of spiritual devotion, colonial history, and pristine natural beauty, creating a cultural landscape unlike anywhere else in India.
+                        
+                        <div class="highlight-box">
+                        <strong>🌿 UNESCO Recognition:</strong> Kerala's Western Ghats are a UNESCO World Heritage Site, harboring 325 globally threatened species!
+                        </div>
+                        
+                        <h4>🕉️ Sacred Temple Architecture:</h4>
+                        <ul>
+                            <li><strong>Padmanabhaswamy Temple, Thiruvananthapuram</strong> - One of the world's richest temples with Dravidian architecture</li>
+                            <li><strong>Guruvayur Temple</strong> - Most sacred Krishna temple, called "Dwarka of the South"</li>
+                            <li><strong>Sabarimala</strong> - Famous pilgrimage site for Lord Ayyappa</li>
+                            <li><strong>Vadakkunnathan Temple, Thrissur</strong> - Ancient Shiva temple with unique circular structure</li>
+                            <li><strong>Attukal Temple</strong> - Holds Guinness record for largest religious gathering of women</li>
+                        </ul>
+                        
+                        <h4>🏰 Colonial Heritage:</h4>
+                        <ul>
+                            <li><strong>Fort Kochi</strong> - Portuguese, Dutch, and British colonial architecture</li>
+                            <li><strong>Chinese Fishing Nets</strong> - 600-year-old fishing technique introduced by Chinese</li>
+                            <li><strong>Mattancherry Palace</strong> - Dutch palace showcasing Kerala murals</li>
+                            <li><strong>St. Francis Church</strong> - India</li>
+                            <li><strong>St. Francis Church</strong> - Oldest European church in India, where Vasco da Gama was buried</li>
+                            <li><strong>Jewish Synagogue</strong> - 450-year-old synagogue with Chinese tiles</li>
+                        </ul>
+                        
+                        <h4>🌿 Natural Heritage:</h4>
+                        <ul>
+                            <li><strong>Backwaters</strong> - 1,500 km network of lagoons and lakes with unique ecosystem</li>
+                            <li><strong>Western Ghats</strong> - UNESCO World Heritage mountain range with endemic species</li>
+                            <li><strong>Hill Stations</strong> - Munnar, Wayanad, and Thekkady with tea plantations</li>
+                            <li><strong>Wildlife Sanctuaries</strong> - Periyar, Silent Valley protecting endangered species</li>
+                            <li><strong>Beaches</strong> - Kovalam, Varkala, and Marari with pristine coastline</li>
+                        </ul>`
+                    },
+                    {
+                        icon: '🥻',
+                        title: 'Traditional Attire & Textiles',
+                        images: [
+                            {
+                                url: 'https://images.unsplash.com/photo-1594736797933-d0e3ba1d36c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Kerala Saree - Kasavu'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Traditional Kerala Mundu'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Kerala Bridal Attire'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Traditional Kerala Jewelry'
+                            }
+                        ],
+                        content: `Kerala's traditional attire reflects the state's tropical climate, matriarchal society, and rich textile heritage, featuring elegant simplicity combined with golden accents that represent prosperity and devotion.
+                        
+                        <div class="highlight-box">
+                        <strong>👑 Royal Heritage:</strong> The golden border (kasavu) in Kerala sarees was originally worn only by royalty but became democratized over time!
+                        </div>
+                        
+                        <h4>👩 Women's Elegant Attire:</h4>
+                        <ul>
+                            <li><strong>Kasavu Saree</strong> - The iconic Kerala saree:
+                                <ul>
+                                    <li>Off-white or cream cotton base</li>
+                                    <li>Golden border (kasavu) made of real gold threads</li>
+                                    <li>Worn during Onam, weddings, and festivals</li>
+                                    <li>Different styles: Kochi, Kottayam, and Palakkad variations</li>
+                                </ul>
+                            </li>
+                            <li><strong>Mundum Neriyathum</strong> - Traditional two-piece attire:
+                                <ul>
+                                    <li>Mundu - Lower garment wrapped around waist</li>
+                                    <li>Neriyathu - Upper cloth draped over blouse</li>
+                                    <li>Worn during classical dance performances</li>
+                                </ul>
+                            </li>
+                            <li><strong>Set Mundu</strong> - Modern adaptation with pre-stitched pleats</li>
+                        </ul>
+                        
+                        <h4>👨 Men's Traditional Wear:</h4>
+                        <ul>
+                            <li><strong>Mundu</strong> - Traditional dhoti-style garment:
+                                <ul>
+                                    <li>White cotton cloth wrapped around waist</li>
+                                    <li>Kasavu border for special occasions</li>
+                                    <li>Worn with or without shirt</li>
+                                </ul>
+                            </li>
+                            <li><strong>Shirt</strong> - Simple white cotton shirt for formal occasions</li>
+                            <li><strong>Angavastram</strong> - Upper cloth worn over shoulders during ceremonies</li>
+                        </ul>
+                        
+                        <h4>💍 Traditional Jewelry:</h4>
+                        <ul>
+                            <li><strong>Palakka Mala</strong> - Traditional necklace with emerald-like stones</li>
+                            <li><strong>Jimikki</strong> - Dangling earrings with small bells</li>
+                            <li><strong>Pathakam</strong> - Pendant necklace with religious motifs</li>
+                            <li><strong>Vanki</strong> - Armlets worn during classical performances</li>
+                            <li><strong>Mulla Mala</strong> - Jasmine flower garlands for hair</li>
+                        </ul>
+                        
+                        <h4>🌸 Hair & Beauty Traditions:</h4>
+                        <ul>
+                            <li><strong>Long Braided Hair</strong> - Adorned with jasmine flowers</li>
+                            <li><strong>Ayurvedic Beauty</strong> - Natural oils and herbs for skincare</li>
+                            <li><strong>Kajal</strong> - Traditional eye makeup for protection and beauty</li>
+                        </ul>
+                        
+                        <div class="highlight-box">
+                        <strong>✨ Interesting Fact:</strong> Kerala women traditionally wore flowers in their hair not just for beauty, but because jasmine and other flowers have cooling properties perfect for the tropical climate!
+                        </div>`
+                    },
+                    {
+                        icon: '🎭',
+                        title: 'Classical Arts & Cultural Traditions',
+                        images: [
+                            {
+                                url: 'https://images.unsplash.com/photo-1594736797933-d0e3ba1d36c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Kathakali Performance'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Mohiniyattam Dance'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Theyyam Ritual Performance'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Thrissur Pooram Festival'
+                            }
+                        ],
+                        content: `Kerala is the birthplace of several classical Indian art forms and maintains ancient cultural traditions that showcase the state's refined aesthetic sensibilities and spiritual depth.
+                        
+                        <div class="highlight-box">
+                        <strong>🎭 UNESCO Heritage:</strong> Kerala's Koodiyattam is recognized by UNESCO as a Masterpiece of Oral and Intangible Heritage of Humanity!
+                        </div>
+                        
+                        <h4>🎨 Classical Dance Forms:</h4>
+                        <ul>
+                            <li><strong>Kathakali</strong> - Classical dance-drama:
+                                <ul>
+                                    <li>Elaborate makeup and costumes</li>
+                                    <li>Stories from Hindu epics and Puranas</li>
+                                    <li>Highly stylized expressions and gestures</li>
+                                    <li>Male performers traditionally play all roles</li>
+                                </ul>
+                            </li>
+                            <li><strong>Mohiniyattam</strong> - Classical dance of enchantment:
+                                <ul>
+                                    <li>Performed by women in white and gold costumes</li>
+                                    <li>Graceful, swaying movements</li>
+                                    <li>Named after Mohini, Vishnu's female avatar</li>
+                                </ul>
+                            </li>
+                            <li><strong>Koodiyattam</strong> - World's oldest continuously performed theater form</li>
+                            <li><strong>Theyyam</strong> - Ritualistic performance art from North Kerala</li>
+                        </ul>
+                        
+                        <h4>🥋 Martial Arts:</h4>
+                        <ul>
+                            <li><strong>Kalaripayattu</strong> - Ancient martial art form:
+                                <ul>
+                                    <li>Considered mother of all martial arts</li>
+                                    <li>Training includes weapons, meditation, and Ayurveda</li>
+                                    <li>Influenced kung fu and other Asian martial arts</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        
+                        <h4>🎵 Musical Traditions:</h4>
+                        <ul>
+                            <li><strong>Carnatic Music</strong> - South Indian classical music tradition</li>
+                            <li><strong>Sopana Sangeetam</strong> - Temple music for spiritual worship</li>
+                            <li><strong>Folk Songs</strong> - Work songs, boat songs, and agricultural songs</li>
+                        </ul>
+                        
+                        <h4>🎪 Festivals & Celebrations:</h4>
+                        <ul>
+                            <li><strong>Onam</strong> - Harvest festival celebrating King Mahabali's return:
+                                <ul>
+                                    <li>10-day celebration with elaborate flower carpets (pookalam)</li>
+                                    <li>Traditional feast (Onasadya) with 26+ dishes</li>
+                                    <li>Boat races (Vallam Kali) with hundreds of participants</li>
+                                    <li>Pulikali (tiger dance) performances</li>
+                                </ul>
+                            </li>
+                            <li><strong>Thrissur Pooram</strong> - Spectacular temple festival with decorated elephants</li>
+                            <li><strong>Theyyam</strong> - Ritualistic performances in North Kerala temples</li>
+                            <li><strong>Vishu</strong> - New Year celebration with auspicious sightings</li>
+                        </ul>
+                        
+                        <div class="highlight-box">
+                        <strong>🐘 Elephant Culture:</strong> Kerala has over 700 captive elephants, more than any other state, and they're integral to temple festivals and cultural celebrations!
+                        </div>`
+                    },
+                    {
+                        icon: '🥥',
+                        title: 'Kerala Cuisine & Spice Heritage',
+                        images: [
+                            {
+                                url: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Kerala Sadhya Feast'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Fish Curry and Rice'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Kerala Spices'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1596797038530-2c107229654b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Coconut-based Dishes'
+                            }
+                        ],
+                        content: `Kerala cuisine is a harmonious blend of flavors dominated by coconut, spices, and fresh ingredients, reflecting the state's position as a historic spice trading hub and its abundant natural resources.
+                        
+                        <div class="highlight-box">
+                        <strong>🌶️ Spice Capital:</strong> Kerala was the center of the global spice trade for over 2,000 years, earning it the nickname "Spice Garden of India"!
+                        </div>
+                        
+                        <h4>🍽️ Signature Dishes:</h4>
+                        <ul>
+                            <li><strong>Fish Curry (Meen Curry)</strong> - Coconut milk-based curry with fresh fish</li>
+                            <li><strong>Appam with Stew</strong> - Fermented rice pancakes with coconut milk stew</li>
+                            <li><strong>Puttu and Kadala</strong> - Steamed rice cake with black chickpea curry</li>
+                            <li><strong>Kerala Parotta</strong> - Layered flatbread served with spicy curries</li>
+                            <li><strong>Thalassery Biryani</strong> - Fragrant rice dish with unique Malabar spices</li>
+                        </ul>
+                        
+                        <h4>🥥 Coconut-Based Specialties:</h4>
+                        <ul>
+                            <li><strong>Coconut Oil</strong> - Primary cooking medium for authentic flavor</li>
+                            <li><strong>Coconut Milk</strong> - Base for curries and desserts</li>
+                            <li><strong>Coconut Chutney</strong> - Essential accompaniment</li>
+                            <li><strong>Thengai Burfi</strong> - Coconut-based sweet</li>
+                        </ul>
+                        
+                        <h4>🍌 Traditional Sadhya (Feast):</h4>
+                        <ul>
+                            <li><strong>Served on Banana Leaf</strong> - Eco-friendly and adds flavor</li>
+                            <li><strong>26+ Items</strong> - Including rice, curries, pickles, and desserts</li>
+                            <li><strong>Specific Order</strong> - Each dish has a designated position on the leaf</li>
+                            <li><strong>Vegetarian</strong> - Traditional feast is completely plant-based</li>
+                        </ul>
+                        
+                        <h4>🌊 Coastal Delicacies:</h4>
+                        <ul>
+                            <li><strong>Karimeen Curry</strong> - Pearl spot fish in coconut gravy</li>
+                            <li><strong>Prawn Curry</strong> - Spicy prawns in coconut milk</li>
+                            <li><strong>Crab Roast</strong> - Spiced crab with curry leaves</li>
+                            <li><strong>Fish Moilee</strong> - Mild fish curry with coconut milk</li>
+                        </ul>
+                        
+                        <h4>🫖 Beverages & Desserts:</h4>
+                        <ul>
+                            <li><strong>Filter Coffee</strong> - Strong South Indian coffee</li>
+                            <li><strong>Tender Coconut Water</strong> - Natural refresher</li>
+                            <li><strong>Payasam</strong> - Traditional desserts made with rice, lentils, or vermicelli</li>
+                            <li><strong>Banana Chips</strong> - Crispy snacks made from raw bananas</li>
+                        </ul>
+                        
+                        <div class="highlight-box">
+                        <strong>🌿 Health Benefits:</strong> Kerala cuisine uses numerous medicinal spices like turmeric, cardamom, and black pepper, making it both delicious and therapeutic!
+                        </div>`
+                    }
+                ]
+            },
+            // Add more states data here...
+            'punjab': {
+                title: 'Punjab - Land of Five Rivers',
+                location: 'Punjab, India',
+                photos: [
+                    {
+                        url: 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                        caption: 'Golden Temple, Amritsar'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                        caption: 'Punjab Wheat Fields'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                        caption: 'Bhangra Performance'
+                    }
+                ],
+                sections: [
+                    {
+                        icon: '🙏',
+                        title: 'Spiritual Heritage & Sacred Sites',
+                        images: [
+                            {
+                                url: 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Golden Temple'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Gurudwara Architecture'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Sikh Heritage'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1578474846511-04ba529f0b88?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Agricultural Heritage'
+                            }
+                        ],
+                        content: `Punjab is the spiritual heartland of Sikhism and represents India's agricultural prosperity, combining deep religious devotion with a vibrant, hardworking culture that has influenced the entire nation.
+                        
+                        <div class="highlight-box">
+                        <strong>🌾 Green Revolution:</strong> Punjab produces 20% of India's wheat and 11% of rice despite being only 1.5% of the country's area!
+                        </div>
+                        
+                        <h4>🏛️ Sacred Gurudwaras:</h4>
+                        <ul>
+                            <li><strong>Golden Temple (Harmandir Sahib)</strong> - Sikhism's holiest shrine:
+                                <ul>
+                                    <li>Built in 16th century, covered in real gold</li>
+                                    <li>Feeds 100,000+ people daily for free</li>
+                                    <li>Open to all religions and castes</li>
+                                    <li>Houses the original Guru Granth Sahib</li>
+                                </ul>
+                            </li>
+                            <li><strong>Gurudwara Sis Ganj Sahib</strong> - Where Guru Tegh Bahadur was martyred</li>
+                            <li><strong>Takht Sri Keshgarh Sahib</strong> - Birthplace of Khalsa</li>
+                            <li><strong>Gurudwara Manji Sahib</strong> - Where Guru Nanak's body was cremated</li>
+                        </ul>
+                        
+                        <h4>📿 Sikh Philosophy & Values:</h4>
+                        <ul>
+                            <li><strong>Equality</strong> - All humans are equal regardless of caste, creed, or gender</li>
+                            <li><strong>Service (Seva)</strong> - Selfless service to humanity</li>
+                            <li><strong>Sharing (Vand Chakna)</strong> - Sharing resources with the needy</li>
+                            <li><strong>Honest Work (Kirat Karni)</strong> - Earning through honest means</li>
+                        </ul>
+                        
+                        <h4>🌾 Agricultural Heritage:</h4>
+                        <ul>
+                            <li><strong>Wheat Belt</strong> - India's primary wheat-producing region</li>
+                            <li><strong>Rice Production</strong> - Major contributor to national food security</li>
+                            <li><strong>Modern Farming</strong> - Pioneer in mechanized agriculture</li>
+                            <li><strong>Cooperative Movement</strong> - Strong farmer cooperation networks</li>
+                        </ul>
+                        
+                        <div class="highlight-box">
+                        <strong>🤝 Langar Tradition:</strong> The Golden Temple serves free meals to over 100,000 people daily, making it the world's largest free kitchen!
+                        </div>`
+                    }
+                    // Add more sections for Punjab here...
+                ]
+            }
+        };
+
+        // State name mapping for better search
+        const stateMapping = {
+            'rajasthan': ['rajasthan', 'jaipur', 'udaipur', 'jodhpur', 'jaisalmer', 'bikaner'],
+            'gujarat': ['gujarat', 'ahmedabad', 'surat', 'vadodara', 'rajkot', 'gandhinagar', 'kutch', 'rann'],
+            'kerala': ['kerala', 'kochi', 'cochin', 'thiruvananthapuram', 'munnar', 'alleppey', 'wayanad'],
+            'punjab': ['punjab', 'amritsar', 'ludhiana', 'chandigarh', 'patiala', 'jalandhar'],
+            'west bengal': ['west bengal', 'bengal', 'kolkata', 'calcutta', 'darjeeling', 'sundarbans'],
+            'tamil nadu': ['tamil nadu', 'tamilnadu', 'chennai', 'madras', 'madurai', 'coimbatore', 'salem']
+        };
+
+        // Enhanced search function
+        function findCulturalData(query) {
+            const lowerQuery = query.toLowerCase().trim();
+            
+            // Direct match
+            if (culturalData[lowerQuery]) {
+                return culturalData[lowerQuery];
+            }
+            
+            // Search in state mappings
+            for (const [state, keywords] of Object.entries(stateMapping)) {
+                if (keywords.some(keyword => lowerQuery.includes(keyword) || keyword.includes(lowerQuery))) {
+                    return culturalData[state];
+                }
+            }
+            
+            return null;
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchBtn = document.getElementById('searchBtn');
+            const searchInput = document.getElementById('searchInput');
+            const categoryBtns = document.querySelectorAll('.category-btn');
+
+            // Search button event
+            searchBtn.addEventListener('click', handleSearch);
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handleSearch();
+                }
+            });
+
+            // Category buttons event
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const query = this.getAttribute('data-query');
+                    searchInput.value = query;
+                    handleSearch();
+                });
+            });
+
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+
+        async function handleSearch() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (!query) {
+                showError('Please enter a location to search for cultural heritage information.');
+                return;
+            }
+
+            showLoading();
+            
+            try {
+                // Find cultural data
+                const localData = findCulturalData(query);
+                if (localData) {
+                    displayResults(localData);
+                } else {
+                    // Create generic response for unknown locations
+                    const genericData = createGenericResponse(query);
+                    displayResults(genericData);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                showError('Unable to fetch cultural heritage information. Please try again with a different location.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        function createGenericResponse(query) {
+            const capitalizedQuery = query.charAt(0).toUpperCase() + query.slice(1);
+            return {
+                title: `Cultural Heritage of ${capitalizedQuery}`,
+                location: `${capitalizedQuery}, India`,
+                photos: [
+                    {
+                        url: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                        caption: `Heritage site in ${capitalizedQuery}`
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                        caption: `Cultural traditions of ${capitalizedQuery}`
+                    }
+                ],
+                sections: [
+                    {
+                        icon: '🏛️',
+                        title: 'Heritage & Culture',
+                        images: [
+                            {
+                                url: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Historical Architecture'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1587474260584-136574528ed5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Cultural Traditions'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Local Festivals'
+                            },
+                            {
+                                url: 'https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                                caption: 'Traditional Arts'
+                            }
+                        ],
+                        content: `${capitalizedQuery} has a rich cultural heritage that reflects India's incredible diversity and ancient traditions.
+                        
+                        <div class="highlight-box">
+                        <strong>🎯 Cultural Significance:</strong> Each region of India has its unique cultural identity shaped by history, geography, and local traditions.
+                        </div>
+                        
+                        <h4>🏛️ Historical Heritage:</h4>
+                        <ul>
+                            <li><strong>Ancient Monuments</strong> - Historic temples, forts, and palaces showcasing architectural brilliance</li>
+                            <li><strong>Archaeological Sites</strong> - Evidence of ancient civilizations and cultural evolution</li>
+                            <li><strong>Religious Sites</strong> - Sacred places representing diverse spiritual traditions</li>
+                            <li><strong>Colonial Heritage</strong> - British, Portuguese, Dutch, and French colonial influences</li>
+                        </ul>
+                        
+                        <h4>🎨 Cultural Traditions:</h4>
+                        <ul>
+                            <li><strong>Folk Arts</strong> - Traditional paintings, sculptures, and handicrafts</li>
+                            <li><strong>Music & Dance</strong> - Classical and folk performances passed down through generations</li>
+                            <li><strong>Festivals</strong> - Colorful celebrations marking seasonal and religious occasions</li>
+                            <li><strong>Literature</strong> - Rich tradition of poetry, stories, and philosophical texts</li>
+                        </ul>
+                        
+                        <h4>👗 Traditional Attire:</h4>
+                        <ul>
+                            <li><strong>Regional Costumes</strong> - Unique clothing styles adapted to local climate and culture</li>
+                            <li><strong>Textile Arts</strong> - Traditional weaving, dyeing, and embroidery techniques</li>
+                            <li><strong>Jewelry</strong> - Ornamental traditions reflecting local craftsmanship</li>
+                            <li><strong>Ceremonial Dress</strong> - Special attire for weddings and festivals</li>
+                        </ul>
+                        
+                        <h4>🍛 Culinary Heritage:</h4>
+                        <ul>
+                            <li><strong>Local Cuisine</strong> - Traditional dishes using regional ingredients and spices</li>
+                            <li><strong>Cooking Techniques</strong> - Ancient methods of food preparation and preservation</li>
+                            <li><strong>Festival Foods</strong> - Special dishes prepared during celebrations</li>
+                            <li><strong>Street Food</strong> - Popular snacks and local specialties</li>
+                        </ul>
+                        
+                        <div class="highlight-box">
+                        <strong>🌟 Cultural Diversity:</strong> India's cultural heritage is one of the world's oldest and most diverse, with each region contributing its unique traditions to the national tapestry!
+                        </div>`
+                    }
+                ]
+            };
+        }
+
+        function displayResults(data) {
+            const resultsSection = document.getElementById('resultsSection');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultLocation = document.getElementById('resultLocation');
+            const photoGallery = document.getElementById('photoGallery');
+            const cultureDetails = document.getElementById('cultureDetails');
+
+            // Update header
+            resultTitle.textContent = data.title;
+            resultLocation.textContent = `📍 ${data.location}`;
+
+            // Clear and populate photo gallery
+            photoGallery.innerHTML = '';
+            data.photos.forEach((photo) => {
+                const photoItem = document.createElement('div');
+                photoItem.className = 'photo-item';
+                photoItem.innerHTML = `
+                    <img src="${photo.url}" alt="${photo.caption}" loading="lazy">
+                    <div class="photo-overlay">
+                        <h4>${photo.caption}</h4>
+                        <p>Explore the rich heritage and vibrant culture</p>
+                    </div>
+                `;
+                photoGallery.appendChild(photoItem);
+            });
+
+            // Clear and populate culture details
+            cultureDetails.innerHTML = '';
+            data.sections.forEach(section => {
+                const detailSection = document.createElement('div');
+                detailSection.className = 'detail-section';
+                
+                let imagesHtml = '';
+                if (section.images && section.images.length > 0) {
+                    imagesHtml = `
+                        <div class="detail-images">
+                            ${section.images.map(img => `
+                                <div class="detail-image">
+                                    <img src="${img.url}" alt="${img.caption}" loading="lazy">
+                                    <div class="image-caption">${img.caption}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+                
+                detailSection.innerHTML = `
+                    <h3><span>${section.icon}</span> ${section.title}</h3>
+                    <div class="detail-content">
+                        ${imagesHtml}
+                        <div class="detail-text">${section.content}</div>
+                    </div>
+                `;
+                cultureDetails.appendChild(detailSection);
+            });
+
+            // Show results section
+            resultsSection.style.display = 'block';
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showLoading() {
+            document.getElementById('loadingDiv').style.display = 'block';
+            document.getElementById('resultsSection').style.display = 'none';
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingDiv').style.display = 'none';
+        }
+
+        function showError(message) {
+            const resultsSection = document.getElementById('resultsSection');
+            const cultureDetails = document.getElementById('cultureDetails');
+            
+            document.getElementById('resultTitle').textContent = 'Search Error';
+            document.getElementById('resultLocation').textContent = '📍 Please try a different location';
+            document.getElementById('photoGallery').innerHTML = '';
+            
+            cultureDetails.innerHTML = `
+                <div class="error-message">
+                    <h3>❌ ${message}</h3>
+                    <p>Try searching for popular destinations like Rajasthan, Gujarat, Kerala, Punjab, or other Indian states and cities.</p>
+                </div>
+            `;
+            
+            resultsSection.style.display = 'block';
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

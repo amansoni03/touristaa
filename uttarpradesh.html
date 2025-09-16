@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uttar Pradesh Tourism - Incredible India</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: 
+                radial-gradient(circle at top left, rgba(255, 153, 51, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at top right, rgba(19, 136, 8, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at bottom left, rgba(0, 70, 151, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at bottom right, rgba(255, 153, 51, 0.3) 0%, transparent 50%),
+                linear-gradient(135deg, #f8f4e6 0%, #fff8dc 25%, #f0f8e8 50%, #e6f3ff 75%, #fff8dc 100%);
+            background-attachment: fixed;
+            color: #2c3e50;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating Background Images */
+        .floating-images {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-img {
+            position: absolute;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(255, 153, 51, 0.2);
+            opacity: 0.15;
+            filter: blur(1px);
+            transition: all 0.3s ease;
+        }
+
+        .floating-img:hover {
+            opacity: 0.25;
+            filter: blur(0px);
+            transform: scale(1.05);
+        }
+
+        /* UP specific floating images */
+        .floating-img-1 {
+            width: 300px;
+            height: 200px;
+            top: 10%;
+            left: 5%;
+            background: linear-gradient(rgba(255,153,51,0.1), rgba(255,153,51,0.1)), url('https://images.unsplash.com/photo-1564507592333-c60657eea523?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80') center/cover;
+            animation: float1 8s ease-in-out infinite;
+            border: 2px solid rgba(255, 153, 51, 0.2);
+        }
+
+        .floating-img-2 {
+            width: 250px;
+            height: 180px;
+            top: 20%;
+            right: 10%;
+            background: linear-gradient(rgba(19,136,8,0.1), rgba(19,136,8,0.1)), url('https://images.unsplash.com/photo-1587474260584-136574528ed5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80') center/cover;
+            animation: float2 10s ease-in-out infinite;
+            border: 2px solid rgba(19, 136, 8, 0.2);
+        }
+
+        .floating-img-3 {
+            width: 280px;
+            height: 190px;
+            top: 50%;
+            left: 8%;
+            background: linear-gradient(rgba(0,70,151,0.1), rgba(0,70,151,0.1)), url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80') center/cover;
+            animation: float3 12s ease-in-out infinite;
+            border: 2px solid rgba(0, 70, 151, 0.2);
+        }
+
+        .floating-img-4 {
+            width: 320px;
+            height: 210px;
+            top: 60%;
+            right: 5%;
+            background: linear-gradient(rgba(255,153,51,0.1), rgba(255,153,51,0.1)), url('https://images.unsplash.com/photo-1477587458883-47145ed94245?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80') center/cover;
+            animation: float4 9s ease-in-out infinite;
+            border: 2px solid rgba(255, 153, 51, 0.2);
+        }
+
+        /* Floating animations */
+        @keyframes float1 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(1deg); }
+            50% { transform: translateY(-30px) rotate(0deg); }
+            75% { transform: translateY(-15px) rotate(-1deg); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) translateX(10px) rotate(1deg); }
+            66% { transform: translateY(-10px) translateX(-5px) rotate(-1deg); }
+        }
+
+        @keyframes float3 {
+            0%, 100% { transform: translateY(0px) scale(1) rotate(0deg); }
+            50% { transform: translateY(-25px) scale(1.02) rotate(2deg); }
+        }
+
+        @keyframes float4 {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            25% { transform: translateY(-18px) translateX(-8px); }
+            50% { transform: translateY(-35px) translateX(0px); }
+            75% { transform: translateY(-18px) translateX(8px); }
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .action-btn {
+            background: linear-gradient(135deg, #ff9933, #138808);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 153, 51, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 140px;
+            justify-content: center;
+        }
+        
+        .action-btn:hover {
+            background: linear-gradient(135deg, #e68a00, #0f6b06);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 153, 51, 0.5);
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 3px solid #ff9933;
+            box-shadow: 0 5px 20px rgba(255, 153, 51, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+        
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #138808;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #ff9933;
+        }
+
+        /* Back Button */
+        .back-btn {
+            background: linear-gradient(135deg, #ff9933, #138808);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 153, 51, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        
+        .back-btn:hover {
+            background: linear-gradient(135deg, #e68a00, #0f6b06);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 153, 51, 0.4);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: 
+                radial-gradient(circle at center, rgba(255, 153, 51, 0.1) 0%, transparent 70%),
+                radial-gradient(circle at 80% 20%, rgba(19, 136, 8, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(0, 70, 151, 0.1) 0%, transparent 50%);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-content h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff9933, #138808, #004797);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+        
+        .hero-content p {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            color: rgba(44, 62, 80, 0.8);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(44, 62, 80, 0.7);
+            margin-bottom: 3rem;
+            font-weight: 400;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #ff9933, #138808);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 153, 51, 0.3);
+            margin: 10px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 153, 51, 0.4);
+            background: linear-gradient(135deg, #e68a00, #0f6b06);
+        }
+
+        /* AI Preference Section */
+        .ai-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ai-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 3px solid rgba(255, 153, 51, 0.4);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 25px 50px rgba(255, 153, 51, 0.2);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .ai-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff9933, #138808);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .ai-form {
+            display: grid;
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(255, 153, 51, 0.3);
+            border-radius: 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #ff9933;
+            box-shadow: 0 0 20px rgba(255, 153, 51, 0.2);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 153, 51, 0.1);
+            padding: 10px 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item:hover {
+            background: rgba(255, 153, 51, 0.2);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+
+        .get-recommendations {
+            background: linear-gradient(135deg, #ff9933, #138808);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 153, 51, 0.3);
+            margin-top: 20px;
+        }
+
+        .get-recommendations:hover {
+            background: linear-gradient(135deg, #e68a00, #0f6b06);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 153, 51, 0.4);
+        }
+
+        /* AI Results */
+        .ai-results {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 3px solid rgba(19, 136, 8, 0.4);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(19, 136, 8, 0.2);
+            margin-top: 30px;
+            display: none;
+        }
+
+        .ai-results h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #19881a, #ff9933);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .recommendation-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: rgba(19, 136, 8, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid #138808;
+        }
+        
+        /* Attractions Section */
+        .attractions-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .attractions-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 3px solid rgba(255, 153, 51, 0.4);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 25px 50px rgba(255, 153, 51, 0.2);
+        }
+        
+        .attractions-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .attractions-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ff9933, #138808);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .attractions-title p {
+            font-size: 1.1rem;
+            color: rgba(44, 62, 80, 0.7);
+        }
+
+        /* Category Headers */
+        .category-header {
+            text-align: center;
+            margin: 40px 0 30px 0;
+            position: relative;
+        }
+
+        .category-header h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #ff9933, #138808);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .category-header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(135deg, #ff9933, #138808);
+            border-radius: 2px;
+        }
+
+        /* Attractions Grid */
+        .attractions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        /* Attraction Card Styles */
+        .attraction-card {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.9) 0%, 
+                rgba(248, 244, 230, 0.9) 50%, 
+                rgba(240, 248, 232, 0.9) 100%
+            );
+            border: 2px solid rgba(255, 153, 51, 0.3);
+            border-radius: 25px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 153, 51, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .attraction-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 153, 51, 0.1) 50%, 
+                transparent 100%
+            );
+            transition: left 0.6s ease;
+        }
+
+        .attraction-card:hover::before {
+            left: 100%;
+        }
+
+        .attraction-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: linear-gradient(135deg, 
+                rgba(255, 153, 51, 0.95) 0%, 
+                rgba(19, 136, 8, 0.95) 100%
+            );
+            color: white;
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 
+                0 25px 50px rgba(255, 153, 51, 0.4),
+                0 0 40px rgba(255, 153, 51, 0.3);
+        }
+
+        .attraction-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .attraction-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+            opacity: 0.9;
+        }
+
+        .attraction-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .detail-tag {
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: rgba(255, 153, 51, 0.2);
+            color: #e68a00;
+            transition: all 0.3s ease;
+        }
+
+        .attraction-card:hover .detail-tag {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .map-btn {
+            background: linear-gradient(135deg, #004797, #0066cc);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: fit-content;
+        }
+
+        .map-btn:hover {
+            background: linear-gradient(135deg, #003366, #004797);
+            transform: scale(1.05);
+        }
+
+        .attraction-card:hover .map-btn {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Loading Animation */
+        .attraction-card {
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .attraction-card:nth-child(1) { animation-delay: 0.1s; }
+        .attraction-card:nth-child(2) { animation-delay: 0.15s; }
+        .attraction-card:nth-child(3) { animation-delay: 0.2s; }
+        .attraction-card:nth-child(4) { animation-delay: 0.25s; }
+        .attraction-card:nth-child(5) { animation-delay: 0.3s; }
+        .attraction-card:nth-child(6) { animation-delay: 0.35s; }
+
+        /* Modal for Map */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80%;
+            overflow: auto;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+        }
+
+        .close:hover {
+            color: #ff9933;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        /* Animations */
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .floating-images {
+                display: none;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .attractions-container, .ai-container {
+                margin: 20px;
+                padding: 30px 20px;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .action-buttons {
+                bottom: 20px;
+                right: 20px;
+                gap: 10px;
+            }
+            
+            .action-btn {
+                padding: 12px 16px;
+                font-size: 12px;
+                min-width: 120px;
+            }
+
+            .attractions-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .attraction-card {
+                padding: 25px 20px;
+            }
+
+            .attraction-name {
+                font-size: 1.3rem;
+            }
+
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+
+            .ai-form {
+                padding: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Background Images -->
+    <div class="floating-images">
+        <div class="floating-img floating-img-1"></div>
+        <div class="floating-img floating-img-2"></div>
+        <div class="floating-img floating-img-3"></div>
+        <div class="floating-img floating-img-4"></div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+        <button class="action-btn" id="weather-btn">
+            <span>☀️</span>
+            Weather
+        </button>
+        <button class="action-btn" id="travel-planner-btn">
+            <span>📋</span>
+            Trip Planner
+        </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <span style="font-size: 30px;">🏛️</span>
+                <span>UP Tourism</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#ai-recommendations">AI Recommendations</a>
+                <a href="#attractions">Attractions</a>
+                <a href="index.html" class="back-btn">
+                    <span>←</span>
+                    Back to India
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div style="font-size: 4rem; margin-bottom: 20px;">🕌</div>
+            <h1>Uttar Pradesh</h1>
+            <p class="hero-subtitle">The Heart of Incredible India</p>
+            <p>Discover Ancient Temples, Historic Cities & Cultural Treasures</p>
+            <div>
+                <a href="#ai-recommendations" class="cta-button">
+                    <span>🤖</span>
+                    Get AI Recommendations
+                </a>
+                <a href="#attractions" class="cta-button">
+                    <span>🗺️</span>
+                    Explore Attractions
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Recommendations Section -->
+    <section id="ai-recommendations" class="ai-section">
+        <div class="ai-container">
+            <h2 class="ai-title">🤖 AI-Powered Travel Recommendations</h2>
+            <p style="margin-bottom: 30px; font-size: 1.1rem; color: #666;">Tell us your preferences and get personalized recommendations for your UP trip!</p>
+            
+            <form class="ai-form" id="preferences-form">
+                <div class="form-group">
+                    <label for="travel-duration">How long is your trip?</label>
+                    <select id="travel-duration" name="duration">
+                        <option value="">Select duration</option>
+                        <option value="1-2 days">1-2 days</option>
+                        <option value="3-5 days">3-5 days</option>
+                        <option value="1 week">1 week</option>
+                        <option value="2+ weeks">2+ weeks</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="budget">What's your budget range?</label>
+                    <select id="budget" name="budget">
+                        <option value="">Select budget</option>
+                        <option value="budget">Budget (₹1,000-3,000/day)</option>
+                        <option value="moderate">Moderate (₹3,000-7,000/day)</option>
+                        <option value="luxury">Luxury (₹7,000+/day)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="travel-style">Travel Style</label>
+                    <select id="travel-style" name="style">
+                        <option value="">Select style</option>
+                        <option value="solo">Solo Travel</option>
+                        <option value="couple">Couple</option>
+                        <option value="family">Family with Kids</option>
+                        <option value="friends">Friends Group</option>
+                        <option value="business">Business Travel</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>What interests you most? (Select multiple)</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="historical" name="interests" value="historical">
+                            <label for="historical">🏛️ Historical Sites</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="religious" name="interests" value="religious">
+                            <label for="religious">🕌 Religious Places</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="cultural" name="interests" value="cultural">
+                            <label for="cultural">🎭 Cultural Experiences</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="nature" name="interests" value="nature">
+                            <label for="nature">🌿 Nature & Parks</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="shopping" name="interests" value="shopping">
+                            <label for="shopping">🛍️ Shopping</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="food" name="interests" value="food">
+                            <label for="food">🍛 Local Cuisine</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="adventure" name="interests" value="adventure">
+                            <label for="adventure">🎯 Adventure Activities</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="photography" name="interests" value="photography">
+                            <label for="photography">📸 Photography</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="additional-preferences">Any specific places you want to visit or additional preferences?</label>
+                    <textarea id="additional-preferences" name="additional" rows="3" placeholder="e.g., Want to visit Agra, interested in Mughal architecture, prefer air-conditioned transport..."></textarea>
+                </div>
+
+                <button type="submit" class="get-recommendations">
+                    <span>🎯</span>
+                    Get My Personalized Recommendations
+                </button>
+            </form>
+
+            <div id="ai-results" class="ai-results">
+                <h3>🎯 Your Personalized Recommendations</h3>
+                <div id="recommendation-content" class="recommendation-text"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Attractions Section -->
+    <section id="attractions" class="attractions-section">
+        <div class="attractions-container">
+            <div class="attractions-title">
+                <h2>🏛️ Top Tourist Attractions in Uttar Pradesh</h2>
+                <p>Explore the most incredible destinations across the state</p>
+            </div>
+            
+            <!-- World Heritage Sites -->
+            <div class="category-header">
+                <h3>🌍 UNESCO World Heritage Sites</h3>
+            </div>
+            
+            <div class="attractions-grid">
+                <div class="attraction-card">
+                    <div class="attraction-name">🕌 Taj Mahal, Agra</div>
+                    <div class="attraction-description">One of the Seven Wonders of the World, this ivory-white marble mausoleum is a symbol of eternal love and India's most iconic monument.</div>
+                    <div class="attraction-details">
+                        <span class="detail-tag">UNESCO Site</span>
+                        <span class="detail-tag">Architecture</span>
+                        <span class="detail-tag">Photography</span>
+                        <span class="detail-tag">Must-Visit</span>
+                    </div>
+                    <button class="map-btn" onclick="openMap('Taj Mahal, Agra')">
+                        <span>📍</span>
+                        View on Map
+                    </button>
+                </div>
+                
+                <div class="attraction-card">
+                    <div class="attraction-name">🏰 Agra Fort</div>
+                    <div class="attraction-description">A UNESCO World Heritage Site, this red sandstone fortress served as the main residence of the Mughal emperors for generations.</div>
+                    <div class="attraction-details">
+                        <span class="detail-tag">UNESCO Site</span>
+                        <span class="detail-tag">Historical</span>
+                        <span class="detail-tag">Mughal</span>
+                        <span class="detail-tag">Architecture</span>
+                    </div>
+                    <button class="map-btn" onclick="openMap('Agra Fort, Agra')">
+                        <span>📍</span>
+                        View on Map
+                    </button>
+                </div>
+                
+                <div class="attraction-card">
+                    <div class="attraction-name">🏛️ Fatehpur Sikri</div>
+                    <div class="attraction-description">A perfectly preserved Mughal city built by Emperor Akbar, showcasing the best of Indo-Islamic architecture.</div>
+                    <div class="attraction-details">
+                        <span class="detail-tag">UNESCO Site</span>
+                        <span class="detail-tag">Ghost City</span>
+                        <span class="detail-tag">Akbar</span>
+                        <span class="detail-tag">Architecture</span>
+                    </div>
+                    <button class="map-btn" onclick="openMap('Fatehpur Sikri, Agra')">
+                        <span>📍</span>
+                        View on Map
+                    </button>
+                </div>
+            </div>
+
+            <!-- Religious Sites -->
+            <div class="category-header">
+                <h3>🕌 Sacred Religious Sites</h3>
+            </div>
+            
+            <div class="attractions-grid">
+                <div class="attraction-card">
+                    <div class="attraction-name">🕉️ Varanasi (Kashi Vishwanath)</div>
+                    <div class="attraction-description">One of the oldest living cities in the world, Varanasi is the spiritual capital of India with sacred ghats along the Ganges.</div>
+                    <div class="attraction-details">
+                        <span class="detail-tag">Sacred</span>
+                        <span class="detail-tag">Ganges</span>
+                        <span class="detail-tag">Ancient City</span>
+                        <span class="detail-tag">Spiritual</span>
+                    </div>
+                    <button class="map-btn" onclick="openMap('Kashi Vishwanath Temple, Varanasi')">
+                        <span>📍</span>
+                        View on Map
+                    </button>
+                </div>
+                
+                <div class="attraction-card">
+                    <div class="attraction-name">🙏 Mathura & Vrindavan</div>
+                    <div class="attraction-description">The birthplace of Lord Krishna, these twin holy cities are filled with temples and attract millions of pilgrims.</div>
+                    <div class="attraction-details">
+                        <span class="detail-tag">Krishna</span>
+                        <span class="detail-tag">Pilgrimage</span>
+                        <span class="detail-tag">Temples</span>
+                        <span class="detail-tag">Festival</span>
+                    </div>
+                    <button class="map-btn" onclick="openMap('Mathura, Uttar Pradesh')">
+                        <span>📍</span>
+                        View on Map
+                    </button>
+                </div>
+                
+                <div class="attraction-card">
+                    <div class="attraction-name">🏛️ Ayodhya</div>
+                    <div class="attraction-description">The legendary birthplace of Lord Rama, recently home to the magnificent new Ram Mandir temple complex.</div>
+                    <div class="attraction-details">
+                        <span class="detail-tag">Ram Mandir</span>
+                        <span class="detail-tag">Epic</span>
+                        <span class="detail-tag">New Temple</span>
+                        <span class="detail-tag">Pilgrimage</span>
+                    </div>
+                    <button class="map-btn" onclick="openMap('Ram Mandir, Ayodhya')">
+                        <span>📍</span>
+                        View on Map
+                    </button>
+                </div>
+                
+                <div class="attraction-card">
+                    <div class="attraction-name">🕌 Allahabad (Prayagraj)</div>
+                    <div class="attraction-description">The sacred confluence of Ganges, Yamuna, and mythical Saraswati rivers. Hosts the world's largest religious gathering - Kumbh Mela.</div>
+                    <div class="attraction-details">
+                        <span class="detail-tag">Triveni Sangam</span>
+                        <span class="detail-tag">Kumbh Mela</span>
+                        <span class="detail-tag">Three Rivers</span>
+                        <span class="detail-tag">Sacred Bath</span>
+                    </div>
+                    <button class="map-btn" onclick="openMap('Triveni Sangam, Prayagraj')">
+                        <span>📍</span>
+                        View on Map
+                    </button>
+                </div>
+            </div>
+
+            <!-- Historical Cities -->
+            <div class="category-header">
+                <h3>🏰 Historic Cities & Monuments</h3>
+            </div>
+            
+            <div class="attractions-grid">
+                <div class="attraction-card">
+                    <div class="attraction-name">🏛️ Lucknow</div>
+                    <div class="attraction-description">The city of Nawabs, famous for its refined culture, Awadhi cuisine, and magnificent monuments like Bara Imambara and Rumi Darwaza.</div>
+                    <div class="attraction-details">
+                        <span class="detail-tag">Nawabi</span>
+                        <span class="detail-tag">Cuisine</span>
+                        <span class="detail-tag">Culture</span>
+                        <span class="detail-tag">Architecture</span>
+                    </div>
+                    <button class="map-btn" onclick="openMap('Bara Imambara, Lucknow')">
+                        <span>📍</span>
+                        View on Map
+                    </button>
+                </div>
+                
+                <div class="attraction-card">
+                    <div class="attraction-name">🦌 Khajuraho</div>
+                    <div class="attraction-description">UNESCO World Heritage Site famous for its group of Hindu and Jain temples with intricate erotic sculptures.</div>
+                    <div class="attraction-details">
+                        <span class="detail-tag">UNESCO Site</span>
+                        <span class="detail-tag">Temples</span>
+                        <span class="detail-tag">Sculpture</span>
+                        <span class="detail-tag">Medieval</span>
+                    </div>
+                    <button class="map-btn" onclick="openMap('Khajuraho Temples, Madhya Pradesh')">
+                        <span>📍</span>
+                        View on Map
+                    </button>
+                </div>
+                
+                <div class="attraction-card">
+                    <div class="attraction-name">🦏 Dudhwa National Park</div>
+                    <div class="attraction-description">A biodiversity hotspot protecting tigers, elephants, rhinoceros, and over 400 bird species in the Terai region.</div>
+                    <div class="attraction-details">
+                        <span class="detail-tag">Wildlife</span>
+                        <span class="detail-tag">Tigers</span>
+                        <span class="detail-tag">Safari</span>
+                        <span class="detail-tag">Nature</span>
+                    </div>
+                    <button class="map-btn" onclick="openMap('Dudhwa National Park, Uttar Pradesh')">
+                        <span>📍</span>
+                        View on Map
+                    </button>
+                </div>
+                
+                <div class="attraction-card">
+                    <div class="attraction-name">🏰 Jhansi</div>
+                    <div class="attraction-description">Historic city known for the valor of Rani Lakshmibai, featuring the magnificent Jhansi Fort and rich freedom struggle history.</div>
+                    <div class="attraction-details">
+                        <span class="detail-tag">Rani Lakshmibai</span>
+                        <span class="detail-tag">Freedom Fighter</span>
+                        <span class="detail-tag">Fort</span>
+                        <span class="detail-tag">History</span>
+                    </div>
+                    <button class="map-btn" onclick="openMap('Jhansi Fort, Jhansi')">
+                        <span>📍</span>
+                        View on Map
+                    </button>
+                </div>
+
+                <div class="attraction-card">
+                    <div class="attraction-name">🌊 Chitrakoot</div>
+                    <div class="attraction-description">A serene town associated with Lord Rama's exile, featuring beautiful waterfalls, caves, and temples amidst natural beauty.</div>
+                    <div class="attraction-details">
+                        <span class="detail-tag">Ramayana</span>
+                        <span class="detail-tag">Waterfalls</span>
+                        <span class="detail-tag">Nature</span>
+                        <span class="detail-tag">Peaceful</span>
+                    </div>
+                    <button class="map-btn" onclick="openMap('Chitrakoot, Uttar Pradesh')">
+                        <span>📍</span>
+                        View on Map
+                    </button>
+                </div>
+                
+                <div class="attraction-card">
+                    <div class="attraction-name">🏛️ Sarnath</div>
+                    <div class="attraction-description">Where Buddha delivered his first sermon after enlightenment. Features ancient stupas, museums, and peaceful Buddhist monasteries.</div>
+                    <div class="attraction-details">
+                        <span class="detail-tag">Buddha</span>
+                        <span class="detail-tag">Buddhism</span>
+                        <span class="detail-tag">Ancient</span>
+                        <span class="detail-tag">Peaceful</span>
+                    </div>
+                    <button class="map-btn" onclick="openMap('Sarnath, Varanasi')">
+                        <span>📍</span>
+                        View on Map
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Modal -->
+    <div id="mapModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title">Location Map</h2>
+            <div id="map-container" class="map-container">
+                <p>Loading map...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API Keys and URLs
+        const GOOGLE_MAPS_API_KEY = '1ba40ef259msh14c2d3c440f745bp1d4c5cjsn2b02677fdcd4';
+        const GOOGLE_MAPS_API_HOST = 'google-map-places.p.rapidapi.com';
+        const GPT_API_KEY = '1ba40ef259msh14c2d3c440f745bp1d4c5cjsn2b02677fdcd4';
+        const GPT_API_HOST = 'chatgpt-42.p.rapidapi.com';
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            addScrollAnimations();
+        });
+
+        function setupEventListeners() {
+            // Action buttons
+            document.getElementById('weather-btn').addEventListener('click', function() {
+                window.open('https://weather.com/en-IN/weather/today/l/USUP0001:1:US', '_blank');
+            });
+            
+            document.getElementById('travel-planner-btn').addEventListener('click', function() {
+                document.getElementById('ai-recommendations').scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // AI Form submission
+            document.getElementById('preferences-form').addEventListener('submit', handleFormSubmission);
+
+            // Modal functionality
+            setupModal();
+
+            // Smooth scrolling for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        }
+
+        // Handle AI form submission
+        async function handleFormSubmission(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const preferences = {};
+            
+            // Collect form data
+            preferences.duration = formData.get('duration');
+            preferences.budget = formData.get('budget');
+            preferences.style = formData.get('style');
+            preferences.additional = formData.get('additional');
+            
+            // Collect interests
+            const interests = [];
+            document.querySelectorAll('input[name="interests"]:checked').forEach(checkbox => {
+                interests.push(checkbox.value);
+            });
+            preferences.interests = interests;
+
+            // Validate form
+            if (!preferences.duration || !preferences.budget || interests.length === 0) {
+                alert('Please fill in duration, budget, and select at least one interest!');
+                return;
+            }
+
+            await getAIRecommendations(preferences);
+        }
+
+        // FIXED: Format AI response to proper HTML
+        function formatAIResponse(text) {
+            if (!text) return 'No response received';
+            
+            // Remove leading/trailing whitespace and quotes
+            text = text.trim().replace(/^["']|["']$/g, '');
+            
+            // Convert \n to actual line breaks
+            text = text.replace(/\\n/g, '\n');
+            
+            // Convert line breaks to HTML
+            text = text.replace(/\n\n/g, '</p><p>');
+            text = text.replace(/\n/g, '<br>');
+            
+            // Convert **bold** to HTML bold
+            text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            
+            // Convert *italic* to HTML italic (but not if it's part of **)
+            text = text.replace(/(?<!\*)\*([^*]+?)\*(?!\*)/g, '<em>$1</em>');
+            
+            // Handle numbered lists
+            text = text.replace(/(\d+\.\s)/g, '<br><strong>$1</strong>');
+            
+            // Handle bullet points with dashes
+            text = text.replace(/(-\s)/g, '<br>• ');
+            
+            // Wrap in paragraphs if not already wrapped
+            if (!text.includes('<p>')) {
+                text = '<p>' + text + '</p>';
+            }
+            
+            // Clean up empty paragraphs
+            text = text.replace(/<p><\/p>/g, '');
+            text = text.replace(/<p>\s*<br>/g, '<p>');
+            
+            // Add some styling to sections
+            text = text.replace(/(\d+\.\s[^:]+:)/g, '<div style="background: rgba(19, 136, 8, 0.1); padding: 10px; margin: 10px 0; border-radius: 8px; border-left: 3px solid #138808;"><strong style="color: #138808;">$1</strong>');
+            text = text.replace(/(<div[^>]*><strong[^>]*>[^<]*<\/strong>)(.*?)(?=<div|$)/g, '$1$2</div>');
+            
+            return text;
+        }
+
+        // FIXED: Get AI recommendations using GPT API
+        async function getAIRecommendations(preferences) {
+            const resultsDiv = document.getElementById('ai-results');
+            const contentDiv = document.getElementById('recommendation-content');
+            
+            // Show loading state
+            contentDiv.innerHTML = `
+                <div style="text-align: center; padding: 20px;">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">🤖</div>
+                    <p>Analyzing your preferences and generating personalized recommendations...</p>
+                </div>
+            `;
+            resultsDiv.style.display = 'block';
+            
+            // Create prompt for GPT
+            const prompt = `You are a travel expert for Uttar Pradesh, India. Based on these preferences, create a detailed, personalized travel recommendation:
+
+Duration: ${preferences.duration}
+Budget: ${preferences.budget}  
+Travel Style: ${preferences.style}
+Interests: ${preferences.interests.join(', ')}
+Additional Notes: ${preferences.additional || 'None'}
+
+Please provide:
+1. Recommended cities/destinations in UP
+2. Specific attractions matching their interests
+3. Suggested itinerary 
+4. Budget tips
+5. Best time to visit
+6. Local experiences to try
+7. Transportation suggestions
+
+Make it engaging, detailed, and specifically tailored to UP tourism. Include practical tips and insider recommendations.`;
+
+            try {
+                const response = await fetch('https://chatgpt-42.p.rapidapi.com/aitohuman', {
+                    method: 'POST',
+                    headers: {
+                        'x-rapidapi-key': GPT_API_KEY,
+                        'x-rapidapi-host': GPT_API_HOST,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        text: prompt
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to get AI recommendations');
+                }
+
+                const result = await response.json(); // Parse as JSON first
+                let aiText = '';
+                
+                // Handle different response formats
+                if (result.result && Array.isArray(result.result)) {
+                    aiText = result.result[0]; // Get the first result
+                } else if (result.result) {
+                    aiText = result.result;
+                } else if (typeof result === 'string') {
+                    aiText = result;
+                } else {
+                    aiText = JSON.stringify(result);
+                }
+                
+                // Clean and format the text
+                const formattedText = formatAIResponse(aiText);
+                
+                // Display results
+                contentDiv.innerHTML = `
+                    <div style="background: rgba(255, 153, 51, 0.05); padding: 25px; border-radius: 15px; margin: 20px 0;">
+                        <h4 style="color: #ff9933; margin-bottom: 15px; font-size: 1.3rem;">
+                            🎯 Your Personalized UP Travel Plan
+                        </h4>
+                        <div style="line-height: 1.8;">
+                            ${formattedText}
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 25px;">
+                        <button onclick="window.print()" style="background: linear-gradient(135deg, #ff9933, #138808); color: white; border: none; padding: 12px 25px; border-radius: 20px; font-weight: 600; cursor: pointer; margin: 5px;">
+                            🖨️ Print Plan
+                        </button>
+                        <button onclick="shareRecommendations()" style="background: linear-gradient(135deg, #138808, #ff9933); color: white; border: none; padding: 12px 25px; border-radius: 20px; font-weight: 600; cursor: pointer; margin: 5px;">
+                            📤 Share Plan
+                        </button>
+                    </div>
+                `;
+
+            } catch (error) {
+                console.error('Error getting AI recommendations:', error);
+                contentDiv.innerHTML = `
+                    <div style="background: rgba(255, 0, 0, 0.1); padding: 20px; border-radius: 15px; text-align: center;">
+                        <p style="color: #d32f2f; font-weight: 600;">
+                            ❌ Sorry, we couldn't generate recommendations at the moment.
+                        </p>
+                        <p style="margin-top: 10px; color: #666;">
+                            Please try again later or contact support.
+                        </p>
+                        <button onclick="document.getElementById('ai-results').style.display='none'" style="background: #ff9933; color: white; border: none; padding: 10px 20px; border-radius: 15px; margin-top: 15px; cursor: pointer;">
+                            Close
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // Setup modal for maps
+        function setupModal() {
+            const modal = document.getElementById('mapModal');
+            const closeBtn = document.querySelector('.close');
+
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+
+        // Open map for a location
+        async function openMap(location) {
+            const modal = document.getElementById('mapModal');
+            const title = document.getElementById('modal-title');
+            const container = document.getElementById('map-container');
+            
+            title.textContent = location;
+            modal.style.display = 'block';
+            
+            // Show loading
+            container.innerHTML = `
+                <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: #f5f5f5; border-radius: 15px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 10px;">🗺️</div>
+                        <p>Loading map for ${location}...</p>
+                    </div>
+                </div>
+            `;
+
+            try {
+                // Get street view image from Google Maps API
+                const encodedLocation = encodeURIComponent(location);
+                const url = `https://google-map-places.p.rapidapi.com/maps/api/streetview?size=600x400&source=default&return_error_code=true&location=${encodedLocation}`;
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'x-rapidapi-key': GOOGLE_MAPS_API_KEY,
+                        'x-rapidapi-host': GOOGLE_MAPS_API_HOST
+                    }
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const imageUrl = URL.createObjectURL(blob);
+                    
+                    container.innerHTML = `
+                        <div style="text-align: center;">
+                            <img src="${imageUrl}" style="width: 100%; max-width: 100%; height: auto; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);" alt="Street view of ${location}">
+                            <div style="margin-top: 20px; padding: 15px; background: rgba(255, 153, 51, 0.1); border-radius: 10px;">
+                                <h4 style="margin-bottom: 10px; color: #ff9933;">📍 ${location}</h4>
+                                <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                                    <a href="https://maps.google.com/?q=${encodedLocation}" target="_blank" style="background: #ff9933; color: white; padding: 10px 20px; border-radius: 20px; text-decoration: none; font-weight: 600;">
+                                        🗺️ Open in Google Maps
+                                    </a>
+                                    <a href="https://www.google.com/maps/dir//${encodedLocation}" target="_blank" style="background: #138808; color: white; padding: 10px 20px; border-radius: 20px; text-decoration: none; font-weight: 600;">
+                                        🧭 Get Directions
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    throw new Error('Failed to load street view');
+                }
+
+            } catch (error) {
+                console.error('Error loading map:', error);
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px; background: rgba(255, 0, 0, 0.1); border-radius: 15px;">
+                        <div style="font-size: 3rem; margin-bottom: 10px;">🗺️</div>
+                        <p style="color: #d32f2f; font-weight: 600; margin-bottom: 15px;">
+                            Unable to load street view for this location
+                        </p>
+                        <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                            <a href="https://maps.google.com/?q=${encodeURIComponent(location)}" target="_blank" style="background: #ff9933; color: white; padding: 12px 25px; border-radius: 20px; text-decoration: none; font-weight: 600;">
+                                🗺️ Open in Google Maps
+                            </a>
+                            <a href="https://www.google.com/search?q=${encodeURIComponent(location + ' photos')}" target="_blank" style="background: #138808; color: white; padding: 12px 25px; border-radius: 20px; text-decoration: none; font-weight: 600;">
+                                📸 View Photos
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Share recommendations
+        function shareRecommendations() {
+            const content = document.getElementById('recommendation-content').textContent;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'My Uttar Pradesh Travel Plan',
+                    text: content
+                });
+            } else {
+                // Fallback for browsers without Web Share API
+                navigator.clipboard.writeText(content).then(() => {
+                    alert('Travel plan copied to clipboard!');
+                });
+            }
+        }
+
+        // Add scroll animations
+        function addScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationDelay = Math.random() * 0.5 + 's';
+                        entry.target.classList.add('animate');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.attraction-card').forEach((card) => {
+                observer.observe(card);
+            });
+        }
+
+        // Add some interactive effects
+        document.querySelectorAll('.attraction-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Weather — Incredible India</title>
+  <style>
+    body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff;min-height:100vh}
+    .navbar{background:rgba(15,23,42,0.95);backdrop-filter:blur(12px);padding:12px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;border-bottom:1px solid rgba(59,130,246,0.2)}
+    .logo{display:flex;gap:10px;align-items:center;font-weight:700}
+    .weather-button{background:linear-gradient(135deg,#3b82f6,#f97316);border:none;color:#fff;padding:8px 14px;border-radius:18px;font-weight:600;cursor:pointer}
+    .container{max-width:820px;margin:30px auto;padding:20px}
+    .weather-box{background:rgba(255,255,255,0.05);padding:20px;border-radius:12px}
+    .search-bar{display:flex;gap:10px;margin-bottom:20px}
+    .search-bar input{flex:1;padding:10px;border-radius:8px;border:none;background:#fff;color:#000}
+    .search-bar button{padding:10px 18px;border-radius:8px;border:none;cursor:pointer;background:linear-gradient(135deg,#3b82f6,#f97316);color:#fff;font-weight:600}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:20px}
+    .card{background:rgba(255,255,255,0.08);padding:12px;border-radius:10px;text-align:center;transition:transform 0.2s}
+    .card:hover{transform:translateY(-2px)}
+    .forecast-section{margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.1)}
+    .forecast-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:15px}
+    .forecast-card{background:rgba(255,255,255,0.06);padding:10px;border-radius:8px;text-align:center;font-size:14px}
+    .muted{opacity:0.85}
+    .error{color:#ffb4b4;background:rgba(255,180,180,0.1);padding:10px;border-radius:8px}
+    .success{color:#86efac;background:rgba(134,239,172,0.1);padding:10px;border-radius:8px}
+    .weather-icon{font-size:24px;margin-bottom:5px}
+    .rain-section{margin-top:20px;padding:15px;background:rgba(59,130,246,0.1);border-radius:10px;border-left:4px solid #3b82f6}
+    .air-quality-section{margin-top:20px;padding:15px;background:rgba(168,85,247,0.1);border-radius:10px;border-left:4px solid #a855f7}
+    .temp-display{font-size:2rem;font-weight:bold;color:#60a5fa}
+    .astro-section{margin-top:20px;padding:15px;background:rgba(251,191,36,0.1);border-radius:10px;border-left:4px solid #fbbf24}
+    pre{white-space:pre-wrap;background:rgba(0,0,0,0.2);padding:10px;border-radius:8px;font-size:12px;overflow:auto;max-height:260px}
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <span style="font-size:22px">☀️</span>
+      <div>Weather</div>
+    </div>
+    <div>
+      <a href="/" style="text-decoration:none">
+        <button class="weather-button">← Back</button>
+      </a>
+    </div>
+  </nav>
+  <main class="container">
+    <div class="weather-box">
+      <h1 style="margin:0 0 12px 0">Search Weather</h1>
+      <div class="search-bar">
+        <input id="city-input" placeholder="Enter city (e.g., Lucknow, Mumbai, Delhi)" />
+        <button id="search-btn">Search</button>
+      </div>
+      <div id="results" class="results">
+        <p class="muted">Enter a city and click Search — comprehensive forecast will appear here.</p>
+      </div>
+    </div>
+  </main>
+  <script>
+    const resultsEl = document.getElementById('results');
+    const searchBtn = document.getElementById('search-btn');
+    const cityInput = document.getElementById('city-input');
+
+    // WeatherAPI.com API key
+    const API_KEY = 'cac127887021432e940185205250809';
+
+    async function fetchWeather(city) {
+      resultsEl.innerHTML = '<p class="muted">🔍 Searching weather data...</p>';
+      
+      try {
+        // Fetch current weather + forecast + air quality
+        const forecastUrl = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${encodeURIComponent(city)}&days=5&aqi=yes&alerts=yes`;
+        const response = await fetch(forecastUrl);
+        
+        if (!response.ok) {
+          throw new Error(`City not found: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        renderWeather(data);
+        
+      } catch (err) {
+        console.error('Weather fetch error:', err);
+        resultsEl.innerHTML = `
+          <div class="error">
+            <strong>❌ Failed to fetch weather data</strong><br>
+            ${err.message || 'Please check the city name and try again.'}
+          </div>
+        `;
+      }
+    }
+
+    function getWeatherEmoji(code, isDay) {
+      const emojiMap = {
+        1000: isDay ? '☀️' : '🌙', // Clear
+        1003: isDay ? '🌤️' : '☁️', // Partly cloudy
+        1006: '☁️', // Cloudy
+        1009: '☁️', // Overcast
+        1030: '🌫️', // Mist
+        1063: '🌦️', // Patchy rain possible
+        1066: '🌨️', // Patchy snow possible
+        1069: '🌨️', // Patchy sleet possible
+        1072: '🌨️', // Patchy freezing drizzle possible
+        1087: '⛈️', // Thundery outbreaks possible
+        1114: '❄️', // Blowing snow
+        1117: '❄️', // Blizzard
+        1135: '🌫️', // Fog
+        1147: '🌫️', // Freezing fog
+        1150: '🌧️', // Patchy light drizzle
+        1153: '🌧️', // Light drizzle
+        1168: '🌧️', // Freezing drizzle
+        1171: '🌧️', // Heavy freezing drizzle
+        1180: '🌦️', // Patchy light rain
+        1183: '🌧️', // Light rain
+        1186: '🌦️', // Moderate rain at times
+        1189: '🌧️', // Moderate rain
+        1192: '🌧️', // Heavy rain at times
+        1195: '🌧️', // Heavy rain
+        1198: '🌧️', // Light freezing rain
+        1201: '🌧️', // Moderate or heavy freezing rain
+        1204: '🌨️', // Light sleet
+        1207: '🌨️', // Moderate or heavy sleet
+        1210: '🌨️', // Patchy light snow
+        1213: '❄️', // Light snow
+        1216: '🌨️', // Patchy moderate snow
+        1219: '❄️', // Moderate snow
+        1222: '🌨️', // Patchy heavy snow
+        1225: '❄️', // Heavy snow
+        1237: '🌨️', // Ice pellets
+        1240: '🌦️', // Light rain shower
+        1243: '🌧️', // Moderate or heavy rain shower
+        1246: '🌧️', // Torrential rain shower
+        1249: '🌨️', // Light sleet showers
+        1252: '🌨️', // Moderate or heavy sleet showers
+        1255: '❄️', // Light snow showers
+        1258: '❄️', // Moderate or heavy snow showers
+        1261: '🌨️', // Light showers of ice pellets
+        1264: '🌨️', // Moderate or heavy showers of ice pellets
+        1273: '⛈️', // Patchy light rain with thunder
+        1276: '⛈️', // Moderate or heavy rain with thunder
+        1279: '⛈️', // Patchy light snow with thunder
+        1282: '⛈️'  // Moderate or heavy snow with thunder
+      };
+      return emojiMap[code] || '🌤️';
+    }
+
+    function getRainStatus(precip, humidity, chanceOfRain) {
+      if (precip > 10) return { status: 'Heavy Rain Expected', color: '#ef4444' };
+      if (precip > 3) return { status: 'Moderate Rain Expected', color: '#f97316' };
+      if (precip > 0.5) return { status: 'Light Rain Expected', color: '#eab308' };
+      if (chanceOfRain > 70) return { status: 'High Chance of Rain', color: '#f59e0b' };
+      if (chanceOfRain > 40) return { status: 'Possible Light Showers', color: '#84cc16' };
+      return { status: 'No Rain Expected', color: '#10b981' };
+    }
+
+    function getAirQualityStatus(usEpaIndex) {
+      const statuses = {
+        1: { text: 'Good', color: '#22c55e' },
+        2: { text: 'Moderate', color: '#eab308' },
+        3: { text: 'Unhealthy for Sensitive Groups', color: '#f97316' },
+        4: { text: 'Unhealthy', color: '#ef4444' },
+        5: { text: 'Very Unhealthy', color: '#a855f7' },
+        6: { text: 'Hazardous', color: '#7c2d12' }
+      };
+      return statuses[usEpaIndex] || { text: 'Unknown', color: '#6b7280' };
+    }
+
+    function renderWeather(data) {
+      const location = data.location;
+      const current = data.current;
+      const forecast = data.forecast;
+      const today = forecast.forecastday[0];
+      
+      const temp = Math.round(current.temp_c);
+      const feelsLike = Math.round(current.feelslike_c);
+      const weatherIcon = getWeatherEmoji(current.condition.code, current.is_day);
+      
+      // Rain analysis
+      const todayPrecip = today.day.totalprecip_mm;
+      const chanceOfRain = today.hour.find(h => new Date(h.time).getHours() >= new Date().getHours())?.chance_of_rain || 0;
+      const rainStatus = getRainStatus(todayPrecip, current.humidity, chanceOfRain);
+      
+      // Air quality
+      const airQuality = current.air_quality;
+      const aqStatus = getAirQualityStatus(airQuality?.['us-epa-index']);
+      
+      let weatherHTML = `
+        <div class="success" style="text-align:center;margin-bottom:20px">
+          <span class="weather-icon">${weatherIcon}</span>
+          <h2 style="margin:10px 0 5px 0">${location.name}, ${location.country}</h2>
+          <div class="temp-display">${temp}°C</div>
+          <p style="margin:5px 0;text-transform:capitalize">${current.condition.text}</p>
+          <p style="margin:5px 0;opacity:0.8">Feels like ${feelsLike}°C</p>
+          <p style="margin:5px 0;opacity:0.7;font-size:14px">Local Time: ${location.localtime}</p>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <strong>🌡️ Temperature</strong><br>
+            ${today.day.mintemp_c}° - ${today.day.maxtemp_c}°C
+          </div>
+          <div class="card">
+            <strong>💨 Wind</strong><br>
+            ${current.wind_kph} km/h ${current.wind_dir}
+          </div>
+          <div class="card">
+            <strong>💧 Humidity</strong><br>
+            ${current.humidity}%
+          </div>
+          <div class="card">
+            <strong>🏔️ Pressure</strong><br>
+            ${current.pressure_mb} mb
+          </div>
+          <div class="card">
+            <strong>👁️ Visibility</strong><br>
+            ${current.vis_km} km
+          </div>
+          <div class="card">
+            <strong>☁️ Cloud Cover</strong><br>
+            ${current.cloud}%
+          </div>
+          <div class="card">
+            <strong>☀️ UV Index</strong><br>
+            ${current.uv} ${current.uv > 7 ? '(High)' : current.uv > 5 ? '(Moderate)' : '(Low)'}
+          </div>
+          <div class="card">
+            <strong>💨 Wind Gust</strong><br>
+            ${current.gust_kph} km/h
+          </div>
+        </div>
+
+        <div class="rain-section">
+          <h4 style="margin:0 0 15px 0;color:#60a5fa">🌧️ Rain Analysis</h4>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px">
+            <div>
+              <strong>Current Precipitation:</strong><br>
+              <span style="font-size:18px;color:#60a5fa">${current.precip_mm} mm</span>
+            </div>
+            <div>
+              <strong>Today's Total:</strong><br>
+              <span style="font-size:18px;color:#60a5fa">${todayPrecip} mm</span>
+            </div>
+            <div>
+              <strong>Rain Status:</strong><br>
+              <span style="color:${rainStatus.color}">${rainStatus.status}</span>
+            </div>
+            <div>
+              <strong>Chance of Rain:</strong><br>
+              <span style="color:${chanceOfRain > 50 ? '#f87171' : '#34d399'}">${chanceOfRain}%</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Air Quality Section
+      if (airQuality) {
+        weatherHTML += `
+          <div class="air-quality-section">
+            <h4 style="margin:0 0 15px 0;color:#a855f7">🏭 Air Quality Index</h4>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px">
+              <div>
+                <strong>Overall Status:</strong><br>
+                <span style="color:${aqStatus.color}">${aqStatus.text}</span>
+              </div>
+              <div>
+                <strong>PM2.5:</strong><br>
+                <span style="color:#a855f7">${airQuality.pm2_5} μg/m³</span>
+              </div>
+              <div>
+                <strong>PM10:</strong><br>
+                <span style="color:#a855f7">${airQuality.pm10} μg/m³</span>
+              </div>
+              <div>
+                <strong>CO:</strong><br>
+                <span style="color:#a855f7">${airQuality.co} μg/m³</span>
+              </div>
+              <div>
+                <strong>NO2:</strong><br>
+                <span style="color:#a855f7">${airQuality.no2} μg/m³</span>
+              </div>
+              <div>
+                <strong>O3:</strong><br>
+                <span style="color:#a855f7">${airQuality.o3} μg/m³</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Astronomical Data
+      const astro = today.astro;
+      weatherHTML += `
+        <div class="astro-section">
+          <h4 style="margin:0 0 15px 0;color:#fbbf24">🌙 Astronomical Data</h4>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px">
+            <div>
+              <strong>Sunrise:</strong><br>
+              <span style="color:#fbbf24">${astro.sunrise}</span>
+            </div>
+            <div>
+              <strong>Sunset:</strong><br>
+              <span style="color:#fbbf24">${astro.sunset}</span>
+            </div>
+            <div>
+              <strong>Moonrise:</strong><br>
+              <span style="color:#fbbf24">${astro.moonrise}</span>
+            </div>
+            <div>
+              <strong>Moonset:</strong><br>
+              <span style="color:#fbbf24">${astro.moonset}</span>
+            </div>
+            <div>
+              <strong>Moon Phase:</strong><br>
+              <span style="color:#fbbf24">${astro.moon_phase}</span>
+            </div>
+            <div>
+              <strong>Moon Illumination:</strong><br>
+              <span style="color:#fbbf24">${astro.moon_illumination}%</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Hourly Forecast
+      weatherHTML += `
+        <div class="forecast-section">
+          <h3 style="margin:0 0 15px 0">⏰ 24-Hour Detailed Forecast</h3>
+          <div class="forecast-grid">
+      `;
+
+      const next12Hours = today.hour.slice(new Date().getHours(), new Date().getHours() + 12);
+      next12Hours.forEach(hour => {
+        const time = new Date(hour.time).getHours().toString().padStart(2, '0') + ':00';
+        const temp = Math.round(hour.temp_c);
+        const precip = hour.precip_mm;
+        const chanceRain = hour.chance_of_rain;
+        const icon = getWeatherEmoji(hour.condition.code, hour.is_day);
+        
+        weatherHTML += `
+          <div class="forecast-card">
+            <div><strong>${time}</strong></div>
+            <div style="margin:5px 0">${icon}</div>
+            <div>${temp}°C</div>
+            <div style="color:#60a5fa">${precip}mm</div>
+            <div style="color:#84cc16;font-size:12px">${chanceRain}% chance</div>
+          </div>
+        `;
+      });
+
+      weatherHTML += `
+          </div>
+        </div>
+      `;
+
+      // 5-Day Forecast
+      weatherHTML += `
+        <div class="forecast-section">
+          <h3 style="margin:0 0 15px 0">📅 5-Day Forecast</h3>
+          <div class="forecast-grid">
+      `;
+
+      forecast.forecastday.forEach((day, index) => {
+        const date = new Date(day.date);
+        const dayName = index === 0 ? 'Today' : date.toLocaleDateString('en-US', { weekday: 'short' });
+        const minTemp = Math.round(day.day.mintemp_c);
+        const maxTemp = Math.round(day.day.maxtemp_c);
+        const totalRain = day.day.totalprecip_mm;
+        const icon = getWeatherEmoji(day.day.condition.code, 1);
+        
+        weatherHTML += `
+          <div class="forecast-card">
+            <div><strong>${dayName}</strong></div>
+            <div style="margin:5px 0">${icon}</div>
+            <div>${minTemp}° - ${maxTemp}°C</div>
+            <div style="color:#60a5fa">${totalRain}mm</div>
+            <div style="font-size:12px;opacity:0.8">${day.day.condition.text}</div>
+          </div>
+        `;
+      });
+
+      weatherHTML += `
+          </div>
+        </div>
+      `;
+
+      // Add alerts if any
+      if (data.alerts && data.alerts.alert && data.alerts.alert.length > 0) {
+        weatherHTML += `
+          <div style="margin-top:20px;padding:15px;background:rgba(239,68,68,0.1);border-radius:10px;border-left:4px solid #ef4444">
+            <h4 style="margin:0 0 10px 0;color:#f87171">⚠️ Weather Alerts</h4>
+        `;
+        
+        data.alerts.alert.forEach(alert => {
+          weatherHTML += `
+            <div style="margin-bottom:10px">
+              <strong>${alert.headline}</strong><br>
+              <p style="margin:5px 0;opacity:0.9">${alert.desc}</p>
+            </div>
+          `;
+        });
+        
+        weatherHTML += `</div>`;
+      }
+
+      resultsEl.innerHTML = weatherHTML;
+    }
+
+    searchBtn.addEventListener('click', () => {
+      const city = cityInput.value.trim();
+      if (!city) { 
+        alert('🏙️ Please enter a city name'); 
+        return; 
+      }
+      fetchWeather(city);
+    });
+
+    cityInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') searchBtn.click();
+    });
+
+    // Demo search on page load
+    window.addEventListener('load', () => {
+      cityInput.value = 'Delhi';
+      fetchWeather('Delhi');
+    });
+  </script>
+</body>
+</html>
